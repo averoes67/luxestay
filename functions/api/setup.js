@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    full_name TEXT NOT NULL,
     email TEXT,
     phone TEXT,
     password_hash TEXT,
@@ -75,7 +75,7 @@ CREATE TABLE reviews (
     FOREIGN KEY (reservation_id) REFERENCES reservations(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (name, email, phone, password_hash, role) VALUES 
+INSERT INTO users (full_name, email, phone, password_hash, role) VALUES 
 ('Admin LuxeStay', 'admin@luxestay.com', '081234567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
 
 INSERT INTO room_types (name, slug, description, base_price, capacity, size_sqm, amenities, image_url) VALUES
