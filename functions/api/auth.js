@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
+import { getCookie } from 'hono/cookie'
 import { sign, verify } from 'hono/jwt'
 
 const JWT_SECRET = 'luxestay_jwt_secret_key_2026'
@@ -7,8 +7,7 @@ const JWT_SECRET = 'luxestay_jwt_secret_key_2026'
 export const authApp = new Hono()
 
 // ── Password Hashing using SHA-256 (Cloudflare Workers compatible) ──
-// bcrypt and PBKDF2 (100k iterations) both exceed the 10ms CPU limit.
-// SHA-256 with random salt is instant and sufficient for this application.
+// SHA-256 with random salt is instant and works within Workers CPU limits.
 
 async function hashPassword(password) {
   const salt = Array.from(crypto.getRandomValues(new Uint8Array(16)))
@@ -34,6 +33,19 @@ async function verifyPassword(password, stored) {
   return hashHex === expectedHash
 }
 
+// ── Helper: Build JSON Response with optional Set-Cookie ──
+function jsonResponse(data, status = 200, cookieStr = null) {
+  const headers = { 'Content-Type': 'application/json' }
+  if (cookieStr) {
+    headers['Set-Cookie'] = cookieStr
+  }
+  return new Response(JSON.stringify(data), { status, headers })
+}
+
+function makeCookie(token) {
+  return `auth_token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
+}
+
 // Helper to get JWT secret
 export function getJwtSecret(c) {
   return c.env.JWT_SECRET || JWT_SECRET
@@ -43,19 +55,19 @@ export function getJwtSecret(c) {
 export async function checkHandler(c) {
   const token = getCookie(c, 'auth_token')
   if (!token) {
-    return c.json({ success: true, loggedIn: false, authenticated: false, user: null })
+    return jsonResponse({ success: true, loggedIn: false, authenticated: false, user: null })
   }
 
   try {
     const payload = await verify(token, getJwtSecret(c), 'HS256')
-    return c.json({
+    return jsonResponse({
       success: true,
       loggedIn: true,
       authenticated: true,
       user: payload.user
     })
   } catch (err) {
-    return c.json({ success: true, loggedIn: false, authenticated: false, user: null })
+    return jsonResponse({ success: true, loggedIn: false, authenticated: false, user: null })
   }
 }
 
@@ -72,24 +84,22 @@ export async function loginHandler(c) {
     const { email, password } = body
 
     if (!email || !password) {
-      return c.json({ success: false, error: 'Email and password are required.' }, 400)
+      return jsonResponse({ success: false, error: 'Email and password are required.' }, 400)
     }
 
-    // Fetch user from DB
     const user = await c.env.DB.prepare(
-      'SELECT id, full_name, email, password_hash, phone, role, created_at FROM users WHERE email = ? LIMIT 1'
+      'SELECT id, full_name, email, password_hash, phone, role FROM users WHERE email = ? LIMIT 1'
     )
     .bind(email)
     .first()
 
     if (!user) {
-      return c.json({ success: false, error: 'Invalid email or password.' }, 401)
+      return jsonResponse({ success: false, error: 'Invalid email or password.' }, 401)
     }
 
-    // Compare passwords using PBKDF2
     const validPassword = await verifyPassword(password, user.password_hash)
     if (!validPassword) {
-      return c.json({ success: false, error: 'Invalid email or password.' }, 401)
+      return jsonResponse({ success: false, error: 'Invalid email or password.' }, 401)
     }
 
     const userData = {
@@ -100,30 +110,18 @@ export async function loginHandler(c) {
       role: user.role
     }
 
-    // Generate JWT token
     const token = await sign(
-      {
-        user: userData,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
-      },
+      { user: userData, exp: Math.floor(Date.now() / 1000) + 86400 },
       getJwtSecret(c)
     )
 
-    // Set HTTP-only Cookie
-    setCookie(c, 'auth_token', token, {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'Lax',
-      maxAge: 60 * 60 * 24
-    })
-
-    return c.json({
-      success: true,
-      message: 'Login successful.',
-      user: userData
-    })
+    return jsonResponse(
+      { success: true, message: 'Login successful.', user: userData },
+      200,
+      makeCookie(token)
+    )
   } catch (err) {
-    return c.json({ success: false, error: err.message }, 500)
+    return jsonResponse({ success: false, error: err.message }, 500)
   }
 }
 
@@ -140,26 +138,23 @@ export async function registerHandler(c) {
     const { full_name, email, password, phone } = body
 
     if (!full_name || !email || !password) {
-      return c.json({ success: false, error: 'Missing required fields: full_name, email, password' }, 400)
+      return jsonResponse({ success: false, error: 'Missing required fields: full_name, email, password' }, 400)
     }
 
     if (password.length < 6) {
-      return c.json({ success: false, error: 'Password must be at least 6 characters.' }, 400)
+      return jsonResponse({ success: false, error: 'Password must be at least 6 characters.' }, 400)
     }
 
-    // Check duplicate email
     const existingUser = await c.env.DB.prepare('SELECT id FROM users WHERE email = ? LIMIT 1')
       .bind(email)
       .first()
 
     if (existingUser) {
-      return c.json({ success: false, error: 'An account with this email address already exists.' }, 409)
+      return jsonResponse({ success: false, error: 'An account with this email address already exists.' }, 409)
     }
 
-    // Hash password using PBKDF2 (Cloudflare Workers compatible)
     const passwordHash = await hashPassword(password)
 
-    // Insert user
     const info = await c.env.DB.prepare(
       'INSERT INTO users (full_name, email, password_hash, phone, role) VALUES (?, ?, ?, ?, ?)'
     )
@@ -176,43 +171,33 @@ export async function registerHandler(c) {
       role: 'guest'
     }
 
-    // Generate JWT token
     const token = await sign(
-      {
-        user: userData,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
-      },
+      { user: userData, exp: Math.floor(Date.now() / 1000) + 86400 },
       getJwtSecret(c)
     )
 
-    // Set HTTP-only Cookie
-    setCookie(c, 'auth_token', token, {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'Lax',
-      maxAge: 60 * 60 * 24
-    })
-
-    return c.json({
-      success: true,
-      message: 'Registration successful.',
-      user: userData
-    }, 201)
+    return jsonResponse(
+      { success: true, message: 'Registration successful.', user: userData },
+      201,
+      makeCookie(token)
+    )
   } catch (err) {
-    return c.json({ success: false, error: err.message }, 500)
+    return jsonResponse({ success: false, error: err.message }, 500)
   }
 }
 
 // Handler: Logout
 export async function logoutHandler(c) {
-  deleteCookie(c, 'auth_token', {
-    path: '/',
-    sameSite: 'Lax'
-  })
-  return c.json({
-    success: true,
-    message: 'Logged out successfully.'
-  })
+  return new Response(
+    JSON.stringify({ success: true, message: 'Logged out successfully.' }),
+    {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Set-Cookie': 'auth_token=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0'
+      }
+    }
+  )
 }
 
 // Connect handlers to Hono clean routes
