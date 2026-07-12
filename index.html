@@ -430,7 +430,7 @@
     async function fetchRooms() {
       const grid = document.getElementById('featuredRoomsGrid');
       try {
-        const res = await fetch('api/rooms.json');
+        const res = await fetch('/api/rooms.php?action=list');
         const data = await res.json();
         if (data.success && data.data) {
           const rooms = data.data.slice(0, 3); // Get first 3 rooms
