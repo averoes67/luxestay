@@ -115,6 +115,8 @@ app.all('/reservations.php', async (c) => {
       return userReservationsHandler(c)
     case 'cancel':
       return cancelReservationHandler(c)
+    case 'pay':
+      return payReservationHandler(c)
     case 'all': {
       const adminRes = await requireAdmin(c, async () => {})
       if (adminRes instanceof Response) return adminRes

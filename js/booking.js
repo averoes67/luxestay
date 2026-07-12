@@ -106,6 +106,22 @@
         document.getElementById('backToStep2').addEventListener('click',  () => goToStep(2));
         document.getElementById('confirmBookingBtn').addEventListener('click', submitBooking);
         document.getElementById('processPaymentBtn')?.addEventListener('click', processPayment);
+
+        // Payment Method selection style logic
+        const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
+        paymentMethods.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                document.querySelectorAll('.payment-method-card').forEach(card => {
+                    card.style.border = '1px solid var(--border-color)';
+                    card.style.background = 'transparent';
+                    card.querySelector('i').style.color = 'var(--text-secondary)';
+                });
+                const activeCard = e.target.closest('.payment-method-card');
+                activeCard.style.border = '2px solid var(--gold)';
+                activeCard.style.background = 'rgba(212,168,83,.05)';
+                activeCard.querySelector('i').style.color = 'var(--gold)';
+            });
+        });
     }
 
     function onCheckInChange() {
@@ -437,11 +453,10 @@
         btn.disabled = true;
         btn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0 auto;border-color:rgba(255,255,255,0.3);border-top-color:#fff;"></div>';
 
-        // Validate CC (Mock)
-        const ccName = document.getElementById('ccName')?.value;
-        const ccNum = document.getElementById('ccNumber')?.value;
-        if (!ccName || !ccNum) {
-            showToast('Please enter your card details.', 'error');
+        // Payment Method Check
+        const selectedMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
+        if (!selectedMethod) {
+            showToast('Please select a payment method.', 'error');
             btn.disabled = false;
             btn.innerHTML = '<i data-lucide="lock" style="width:16px;height:16px;"></i> Pay Now';
             lucide.createIcons();

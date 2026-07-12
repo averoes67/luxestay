@@ -258,35 +258,27 @@
             <p class="step-subtitle">Complete your reservation securely.</p>
             <div class="payment-layout" style="display:flex; gap:32px; align-items:flex-start;">
                 <div class="payment-form" style="flex:2;">
-                    <div class="payment-methods" style="display:flex; gap:16px; margin-bottom:24px;">
-                        <label class="payment-method-card" style="flex:1; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; text-align:center; cursor:pointer; background:rgba(212,168,83,.05);">
-                            <input type="radio" name="payment_method" value="cc" checked style="display:none;">
-                            <i data-lucide="credit-card" style="width:24px;height:24px;color:var(--gold);margin-bottom:8px;"></i>
+                    <div class="payment-methods" style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; cursor:pointer; background:rgba(212,168,83,.05);">
+                            <input type="radio" name="payment_method" value="cc" checked style="margin-right:16px;">
+                            <i data-lucide="credit-card" style="width:24px;height:24px;color:var(--gold);margin-right:16px;"></i>
                             <div style="font-weight:600; color:var(--text-primary);">Credit Card</div>
                         </label>
-                        <label class="payment-method-card" style="flex:1; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; cursor:pointer; opacity:0.6;">
-                            <input type="radio" name="payment_method" value="transfer" style="display:none;" disabled>
-                            <i data-lucide="building" style="width:24px;height:24px;margin-bottom:8px;"></i>
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
+                            <input type="radio" name="payment_method" value="bank" style="margin-right:16px;">
+                            <i data-lucide="building" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
                             <div style="font-weight:600; color:var(--text-primary);">Bank Transfer</div>
                         </label>
-                    </div>
-                    <div class="form-group">
-                        <label>Cardholder Name</label>
-                        <input type="text" placeholder="Name on card" id="ccName">
-                    </div>
-                    <div class="form-group">
-                        <label>Card Number</label>
-                        <input type="text" placeholder="0000 0000 0000 0000" id="ccNumber">
-                    </div>
-                    <div class="date-grid">
-                        <div class="form-group">
-                            <label>Expiry Date</label>
-                            <input type="text" placeholder="MM/YY" id="ccExpiry">
-                        </div>
-                        <div class="form-group">
-                            <label>CVC</label>
-                            <input type="text" placeholder="123" id="ccCVC">
-                        </div>
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
+                            <input type="radio" name="payment_method" value="ewallet" style="margin-right:16px;">
+                            <i data-lucide="smartphone" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
+                            <div style="font-weight:600; color:var(--text-primary);">E-Wallet</div>
+                        </label>
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
+                            <input type="radio" name="payment_method" value="cash" style="margin-right:16px;">
+                            <i data-lucide="banknote" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
+                            <div style="font-weight:600; color:var(--text-primary);">Cash</div>
+                        </label>
                     </div>
                 </div>
                 <div class="payment-summary" style="flex:1; background:var(--bg-card); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius-md);">
