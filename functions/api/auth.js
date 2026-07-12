@@ -1,11 +1,47 @@
 import { Hono } from 'hono'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { sign, verify } from 'hono/jwt'
-import bcrypt from 'bcryptjs'
 
 const JWT_SECRET = 'luxestay_jwt_secret_key_2026'
 
 export const authApp = new Hono()
+
+// ── Password Hashing using Web Crypto API (PBKDF2) ──────────
+// bcrypt is NOT compatible with Cloudflare Workers because it's
+// a synchronous CPU-intensive operation that exceeds the 10ms
+// CPU time limit. PBKDF2 via SubtleCrypto is async and native.
+
+async function hashPassword(password) {
+  const encoder = new TextEncoder()
+  const salt = crypto.getRandomValues(new Uint8Array(16))
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']
+  )
+  const hash = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+    keyMaterial, 256
+  )
+  const saltHex = Array.from(salt).map(b => b.toString(16).padStart(2, '0')).join('')
+  const hashHex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return `pbkdf2:${saltHex}:${hashHex}`
+}
+
+async function verifyPassword(password, stored) {
+  const encoder = new TextEncoder()
+  const parts = stored.split(':')
+  if (parts[0] !== 'pbkdf2' || parts.length !== 3) return false
+  const salt = new Uint8Array(parts[1].match(/.{2}/g).map(b => parseInt(b, 16)))
+  const expectedHash = parts[2]
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']
+  )
+  const hash = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+    keyMaterial, 256
+  )
+  const hashHex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return hashHex === expectedHash
+}
 
 // Helper to get JWT secret
 export function getJwtSecret(c) {
@@ -28,73 +64,76 @@ export async function checkHandler(c) {
       user: payload.user
     })
   } catch (err) {
-    console.error("Verify Error:", err);
-    return c.json({ success: true, loggedIn: false, authenticated: false, user: null, error: err.message })
+    return c.json({ success: true, loggedIn: false, authenticated: false, user: null })
   }
 }
 
 // Handler: Login
 export async function loginHandler(c) {
-  let body
   try {
-    body = await c.req.json()
-  } catch (e) {
-    body = await c.req.parseBody()
+    let body
+    try {
+      body = await c.req.json()
+    } catch (e) {
+      body = await c.req.parseBody()
+    }
+
+    const { email, password } = body
+
+    if (!email || !password) {
+      return c.json({ success: false, error: 'Email and password are required.' }, 400)
+    }
+
+    // Fetch user from DB
+    const user = await c.env.DB.prepare(
+      'SELECT id, full_name, email, password_hash, phone, role, created_at FROM users WHERE email = ? LIMIT 1'
+    )
+    .bind(email)
+    .first()
+
+    if (!user) {
+      return c.json({ success: false, error: 'Invalid email or password.' }, 401)
+    }
+
+    // Compare passwords using PBKDF2
+    const validPassword = await verifyPassword(password, user.password_hash)
+    if (!validPassword) {
+      return c.json({ success: false, error: 'Invalid email or password.' }, 401)
+    }
+
+    const userData = {
+      id: user.id,
+      full_name: user.full_name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role
+    }
+
+    // Generate JWT token
+    const token = await sign(
+      {
+        user: userData,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
+      },
+      getJwtSecret(c)
+    )
+
+    // Set HTTP-only Cookie
+    setCookie(c, 'auth_token', token, {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'Lax',
+      maxAge: 60 * 60 * 24
+    })
+
+    return c.json({
+      success: true,
+      message: 'Login successful.',
+      user: userData
+    })
+  } catch (err) {
+    return c.json({ success: false, error: err.message }, 500)
   }
-
-  const { email, password } = body
-
-  if (!email || !password) {
-    return c.json({ success: false, error: 'Email and password are required.' }, 400)
-  }
-
-  // Fetch user from DB
-  const user = await c.env.DB.prepare(
-    'SELECT id, full_name, email, password_hash, phone, role, created_at FROM users WHERE email = ? LIMIT 1'
-  )
-  .bind(email)
-  .first()
-
-  if (!user) {
-    return c.json({ success: false, error: 'Invalid email or password.' }, 401)
-  }
-
-  // Compare passwords
-  const validPassword = bcrypt.compareSync(password, user.password_hash)
-  if (!validPassword) {
-    return c.json({ success: false, error: 'Invalid email or password.' }, 401)
-  }
-
-  const userData = {
-    id: user.id,
-    full_name: user.full_name,
-    email: user.email,
-    phone: user.phone,
-    role: user.role
-  }
-
-  // Generate JWT token
-  const token = await sign(
-    {
-      user: userData,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // 24 hours
-    },
-    getJwtSecret(c)
-  )
-
-  // Set HTTP-only Cookie
-  setCookie(c, 'auth_token', token, {
-    path: '/',
-    httpOnly: true,
-    sameSite: 'Lax',
-    maxAge: 60 * 60 * 24 // 24 hours
-  })
-
-  return c.json({
-    success: true,
-    message: 'Login successful.',
-    user: userData
-  })
 }
 
 // Handler: Register
@@ -126,9 +165,8 @@ export async function registerHandler(c) {
       return c.json({ success: false, error: 'An account with this email address already exists.' }, 409)
     }
 
-    // Hash password (use low cost factor for Cloudflare Workers CPU limit)
-    const salt = bcrypt.genSaltSync(4)
-    const passwordHash = bcrypt.hashSync(password, salt)
+    // Hash password using PBKDF2 (Cloudflare Workers compatible)
+    const passwordHash = await hashPassword(password)
 
     // Insert user
     const info = await c.env.DB.prepare(
@@ -151,7 +189,7 @@ export async function registerHandler(c) {
     const token = await sign(
       {
         user: userData,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // 24 hours
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
       },
       getJwtSecret(c)
     )
@@ -161,7 +199,7 @@ export async function registerHandler(c) {
       path: '/',
       httpOnly: true,
       sameSite: 'Lax',
-      maxAge: 60 * 60 * 24 // 24 hours
+      maxAge: 60 * 60 * 24
     })
 
     return c.json({
@@ -170,7 +208,7 @@ export async function registerHandler(c) {
       user: userData
     }, 201)
   } catch (err) {
-    return c.json({ success: false, error: err.message, stack: err.stack }, 500)
+    return c.json({ success: false, error: err.message }, 500)
   }
 }
 

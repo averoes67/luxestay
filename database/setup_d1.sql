@@ -95,11 +95,11 @@ CREATE INDEX idx_rooms_status ON rooms(status);
 -- ============================================================
 
 -- Users (password for ALL users is: 'password')
--- Standard bcrypt hash: $2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
+-- PBKDF2 hash (Web Crypto API compatible)
 INSERT INTO users (full_name, email, password_hash, phone, role) VALUES
-('Admin LuxeStay', 'admin@luxestay.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '+1-555-000-0001', 'admin'),
-('James Whitfield', 'james.whitfield@email.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '+1-555-234-5678', 'guest'),
-('Sophia Martinez', 'sophia.martinez@email.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '+1-555-876-5432', 'guest');
+('Admin LuxeStay', 'admin@luxestay.com', 'pbkdf2:0102030405060708090a0b0c0d0e0f10:edcc81643686f4e956b14698b0d2460877a2fdc111c51fc514f7d1af547803d3', '+1-555-000-0001', 'admin'),
+('James Whitfield', 'james.whitfield@email.com', 'pbkdf2:0102030405060708090a0b0c0d0e0f10:edcc81643686f4e956b14698b0d2460877a2fdc111c51fc514f7d1af547803d3', '+1-555-234-5678', 'guest'),
+('Sophia Martinez', 'sophia.martinez@email.com', 'pbkdf2:0102030405060708090a0b0c0d0e0f10:edcc81643686f4e956b14698b0d2460877a2fdc111c51fc514f7d1af547803d3', '+1-555-876-5432', 'guest');
 
 -- Room Types
 INSERT INTO room_types (name, slug, description, base_price, capacity, size_sqm, amenities, image_url) VALUES
