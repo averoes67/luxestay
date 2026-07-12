@@ -373,11 +373,10 @@ function changeLanguage(lang) {
   if (!i18nDict[lang]) lang = 'en';
   localStorage.setItem('luxestay_lang', lang);
   
-  // Update UI dropdown text if present
-  const langText = document.getElementById('currentLangText');
-  if (langText) {
-    langText.textContent = lang.toUpperCase();
-  }
+  // Update UI Pill buttons
+  document.querySelectorAll('.lang-pill-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('btn-' + lang);
+  if (activeBtn) activeBtn.classList.add('active');
   
   // Translate all data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -387,25 +386,6 @@ function changeLanguage(lang) {
     }
   });
 }
-
-function selectLanguage(lang) {
-  changeLanguage(lang);
-  document.getElementById('langMenu')?.classList.remove('show');
-}
-
-function toggleLangMenu() {
-  const menu = document.getElementById('langMenu');
-  if(menu) menu.classList.toggle('show');
-}
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-  const btn = document.getElementById('currentLangBtn');
-  const menu = document.getElementById('langMenu');
-  if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-    menu.classList.remove('show');
-  }
-});
 
 // Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
