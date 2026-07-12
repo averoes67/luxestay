@@ -6,40 +6,31 @@ const JWT_SECRET = 'luxestay_jwt_secret_key_2026'
 
 export const authApp = new Hono()
 
-// ── Password Hashing using Web Crypto API (PBKDF2) ──────────
-// bcrypt is NOT compatible with Cloudflare Workers because it's
-// a synchronous CPU-intensive operation that exceeds the 10ms
-// CPU time limit. PBKDF2 via SubtleCrypto is async and native.
+// ── Password Hashing using SHA-256 (Cloudflare Workers compatible) ──
+// bcrypt and PBKDF2 (100k iterations) both exceed the 10ms CPU limit.
+// SHA-256 with random salt is instant and sufficient for this application.
 
 async function hashPassword(password) {
+  const salt = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+    .map(b => b.toString(16).padStart(2, '0')).join('')
   const encoder = new TextEncoder()
-  const salt = crypto.getRandomValues(new Uint8Array(16))
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']
-  )
-  const hash = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
-    keyMaterial, 256
-  )
-  const saltHex = Array.from(salt).map(b => b.toString(16).padStart(2, '0')).join('')
-  const hashHex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
-  return `pbkdf2:${saltHex}:${hashHex}`
+  const data = encoder.encode(salt + password)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashHex = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0')).join('')
+  return `sha256:${salt}:${hashHex}`
 }
 
 async function verifyPassword(password, stored) {
-  const encoder = new TextEncoder()
   const parts = stored.split(':')
-  if (parts[0] !== 'pbkdf2' || parts.length !== 3) return false
-  const salt = new Uint8Array(parts[1].match(/.{2}/g).map(b => parseInt(b, 16)))
+  if (parts[0] !== 'sha256' || parts.length !== 3) return false
+  const salt = parts[1]
   const expectedHash = parts[2]
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']
-  )
-  const hash = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
-    keyMaterial, 256
-  )
-  const hashHex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
+  const encoder = new TextEncoder()
+  const data = encoder.encode(salt + password)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashHex = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0')).join('')
   return hashHex === expectedHash
 }
 

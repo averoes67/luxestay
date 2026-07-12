@@ -95,11 +95,11 @@ CREATE INDEX idx_rooms_status ON rooms(status);
 -- ============================================================
 
 -- Users (password for ALL users is: 'password')
--- PBKDF2 hash (Web Crypto API compatible)
+-- SHA-256 hash with salt (Cloudflare Workers compatible)
 INSERT INTO users (full_name, email, password_hash, phone, role) VALUES
-('Admin LuxeStay', 'admin@luxestay.com', 'pbkdf2:0102030405060708090a0b0c0d0e0f10:edcc81643686f4e956b14698b0d2460877a2fdc111c51fc514f7d1af547803d3', '+1-555-000-0001', 'admin'),
-('James Whitfield', 'james.whitfield@email.com', 'pbkdf2:0102030405060708090a0b0c0d0e0f10:edcc81643686f4e956b14698b0d2460877a2fdc111c51fc514f7d1af547803d3', '+1-555-234-5678', 'guest'),
-('Sophia Martinez', 'sophia.martinez@email.com', 'pbkdf2:0102030405060708090a0b0c0d0e0f10:edcc81643686f4e956b14698b0d2460877a2fdc111c51fc514f7d1af547803d3', '+1-555-876-5432', 'guest');
+('Admin LuxeStay', 'admin@luxestay.com', 'sha256:0102030405060708090a0b0c0d0e0f10:b70aa4cff112d5ea64feee3f1015ce7f9a4dce966cfc5b1b26251533862eb6e6', '+1-555-000-0001', 'admin'),
+('James Whitfield', 'james.whitfield@email.com', 'sha256:0102030405060708090a0b0c0d0e0f10:b70aa4cff112d5ea64feee3f1015ce7f9a4dce966cfc5b1b26251533862eb6e6', '+1-555-234-5678', 'guest'),
+('Sophia Martinez', 'sophia.martinez@email.com', 'sha256:0102030405060708090a0b0c0d0e0f10:b70aa4cff112d5ea64feee3f1015ce7f9a4dce966cfc5b1b26251533862eb6e6', '+1-555-876-5432', 'guest');
 
 -- Room Types
 INSERT INTO room_types (name, slug, description, base_price, capacity, size_sqm, amenities, image_url) VALUES
