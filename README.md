@@ -1,0 +1,2 @@
+# luxestay
+hotel
