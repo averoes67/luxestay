@@ -43,24 +43,34 @@
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
     const actions = document.querySelector('.nav-actions');
-    if (!toggle) return;
+    const navGuest = document.querySelector('.nav-auth-guest');
+    const navUser = document.querySelector('.nav-auth-user');
+    const navAuth = document.querySelector('.nav-auth');
 
-    toggle.addEventListener('click', () => {
-      toggle.classList.toggle('active');
-      links?.classList.toggle('mobile-open');
-      actions?.classList.toggle('mobile-open');
-      document.body.style.overflow = toggle.classList.contains('active') ? 'hidden' : '';
-    });
-
-    // Close mobile menu when a link is clicked
-    links?.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        toggle.classList.remove('active');
-        links.classList.remove('mobile-open');
-        actions?.classList.remove('mobile-open');
-        document.body.style.overflow = '';
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        links?.classList.toggle('mobile-open');
+        actions?.classList.toggle('mobile-open');
+        navGuest?.classList.toggle('mobile-open');
+        navUser?.classList.toggle('mobile-open');
+        navAuth?.classList.toggle('mobile-open');
+        document.body.style.overflow = toggle.classList.contains('active') ? 'hidden' : '';
       });
-    });
+
+      // Close mobile menu when a link is clicked
+      links?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggle.classList.remove('active');
+          links.classList.remove('mobile-open');
+          actions?.classList.remove('mobile-open');
+          navGuest?.classList.remove('mobile-open');
+          navUser?.classList.remove('mobile-open');
+          navAuth?.classList.remove('mobile-open');
+          document.body.style.overflow = '';
+        });
+      });
+    }
   }
 
   // ── Lucide Icons ──────────────────────────────────────────
