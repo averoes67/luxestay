@@ -32,6 +32,16 @@
       </div>
 
       <div class="nav-actions">
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+          <i data-lucide="globe" style="width:14px;height:14px;color:var(--text-secondary);"></i>
+          <select id="langSwitcher" onchange="changeLanguage(this.value)">
+            <option value="en">EN</option>
+            <option value="id">ID</option>
+          </select>
+        </div>
+
         <!-- Guest (not logged in) -->
         <div class="nav-auth-guest">
           <a href="login.html" class="btn btn-ghost btn-sm">
@@ -461,5 +471,30 @@
       }
     }
   </script>
+
+<div id="google_translate_element"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id', autoDisplay: false}, 'google_translate_element');
+}
+function changeLanguage(lang) {
+  var select = document.querySelector('.goog-te-combo');
+  if (select) {
+    select.value = lang;
+    select.dispatchEvent(new Event('change'));
+  }
+}
+// Sync UI with translate state
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    var select = document.querySelector('.goog-te-combo');
+    if (select && select.value && select.value !== document.getElementById('langSwitcher').value) {
+      document.getElementById('langSwitcher').value = select.value;
+    }
+  }, 1000);
+});
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>

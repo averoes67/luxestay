@@ -396,5 +396,30 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/app.js"></script>
 <script src="js/admin.js"></script>
+
+<div id="google_translate_element"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id', autoDisplay: false}, 'google_translate_element');
+}
+function changeLanguage(lang) {
+  var select = document.querySelector('.goog-te-combo');
+  if (select) {
+    select.value = lang;
+    select.dispatchEvent(new Event('change'));
+  }
+}
+// Sync UI with translate state
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    var select = document.querySelector('.goog-te-combo');
+    if (select && select.value && select.value !== document.getElementById('langSwitcher').value) {
+      document.getElementById('langSwitcher').value = select.value;
+    }
+  }, 1000);
+});
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
