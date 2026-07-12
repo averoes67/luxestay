@@ -289,7 +289,8 @@ ul, ol {
   color: var(--text-secondary);
   font-size: 0.9rem;
 }
-.nav-user i {
+.nav-user i, 
+.nav-user svg {
   width: 18px;
   height: 18px;
   color: var(--gold);
@@ -358,7 +359,8 @@ ul, ol {
   white-space: nowrap;
   line-height: 1.4;
 }
-.btn i,
+.btn i, 
+.btn svg,
 .btn svg {
   width: 18px;
   height: 18px;
@@ -664,7 +666,8 @@ textarea {
   animation: fadeIn 1s ease 1s forwards;
   opacity: 0;
 }
-.scroll-indicator i {
+.scroll-indicator i, 
+.scroll-indicator svg {
   width: 18px;
   height: 18px;
   animation: bounceDown 2s ease-in-out infinite;
@@ -780,7 +783,8 @@ textarea {
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
-.room-meta-item i {
+.room-meta-item i, 
+.room-meta-item svg {
   width: 16px;
   height: 16px;
   color: var(--gold);
@@ -803,7 +807,8 @@ textarea {
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
-.amenity-tag i {
+.amenity-tag i, 
+.amenity-tag svg {
   width: 12px;
   height: 12px;
   color: var(--gold);
@@ -853,7 +858,8 @@ textarea {
   background: rgba(212, 168, 83, 0.2);
   box-shadow: 0 0 20px rgba(212, 168, 83, 0.15);
 }
-.icon-wrapper i {
+.icon-wrapper i, 
+.icon-wrapper svg {
   width: 28px;
   height: 28px;
   color: var(--gold);
@@ -944,7 +950,8 @@ textarea {
   gap: 4px;
   margin-bottom: 16px;
 }
-.testimonial-stars i {
+.testimonial-stars i, 
+.testimonial-stars svg {
   width: 16px;
   height: 16px;
   color: var(--gold);
@@ -1053,7 +1060,8 @@ textarea {
   color: var(--gold);
   background: rgba(212, 168, 83, 0.1);
 }
-.footer-social a i {
+.footer-social a i, 
+.footer-social a svg {
   width: 18px;
   height: 18px;
 }
@@ -1083,7 +1091,8 @@ textarea {
   color: var(--gold);
   padding-left: 4px;
 }
-.footer-column li a i {
+.footer-column li a i, 
+.footer-column li a svg {
   width: 16px;
   height: 16px;
   color: var(--gold);
@@ -1139,7 +1148,8 @@ textarea {
 .newsletter-form button:hover {
   box-shadow: var(--gold-glow);
 }
-.newsletter-form button i {
+.newsletter-form button i, 
+.newsletter-form button svg {
   width: 18px;
   height: 18px;
 }
@@ -1225,7 +1235,8 @@ textarea {
 .modal-close:hover {
   color: var(--text-primary);
 }
-.modal-close i {
+.modal-close i, 
+.modal-close svg {
   width: 20px;
   height: 20px;
 }
@@ -1571,7 +1582,8 @@ textarea {
 }
 
 /* Leading icon (direct child i/svg of wrapper, not inside .password-toggle) */
-.input-icon-wrapper > i,
+.input-icon-wrapper > i, 
+.input-icon-wrapper > svg,
 .input-icon-wrapper > svg {
   position: absolute;
   left: 15px;
@@ -1586,7 +1598,8 @@ textarea {
 /* Highlight leading icon on input focus */
 .input-icon-wrapper input:focus ~ i,
 .input-icon-wrapper input:focus ~ svg,
-.form-group.focused .input-icon-wrapper > i,
+.form-group.focused .input-icon-wrapper > i, 
+.form-group.focused .input-icon-wrapper > svg,
 .form-group.focused .input-icon-wrapper > svg {
   color: var(--gold);
 }
@@ -1611,7 +1624,8 @@ textarea {
 .password-toggle:hover {
   color: var(--text-primary);
 }
-.password-toggle i,
+.password-toggle i, 
+.password-toggle svg,
 .password-toggle svg {
   width: 18px;
   height: 18px;
@@ -1631,7 +1645,8 @@ textarea {
   border-color: var(--error);
   box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.08);
 }
-.form-group.has-error .input-icon-wrapper > i,
+.form-group.has-error .input-icon-wrapper > i, 
+.form-group.has-error .input-icon-wrapper > svg,
 .form-group.has-error .input-icon-wrapper > svg {
   color: var(--error);
 }
@@ -1876,7 +1891,8 @@ textarea {
   margin: 0 auto 24px;
   animation: scaleIn 0.5s ease;
 }
-.confirmation-icon i {
+.confirmation-icon i, 
+.confirmation-icon svg {
   width: 36px;
   height: 36px;
   color: var(--success);

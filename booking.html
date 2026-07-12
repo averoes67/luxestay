@@ -14,7 +14,8 @@
         .step-indicator{display:flex;justify-content:center;align-items:center;gap:0;margin:40px auto 50px;max-width:700px}
         .step-item{display:flex;flex-direction:column;align-items:center;position:relative;flex:1;z-index:1}
         .step-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg-secondary);border:2px solid var(--border-color);color:var(--text-muted);font-size:1.1rem;transition:var(--transition);position:relative;z-index:2}
-        .step-circle i{width:20px;height:20px}
+        .step-circle i, 
+        .step-circle svg{width:20px;height:20px}
         .step-label{margin-top:10px;font-size:.8rem;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;transition:var(--transition);white-space:nowrap}
         .step-item.active .step-circle{background:var(--gold-gradient);border-color:var(--gold);color:var(--bg-primary);box-shadow:0 0 30px rgba(212,168,83,.35)}
         .step-item.active .step-label{color:var(--gold)}
@@ -47,7 +48,8 @@
         .room-card-body h3{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:600;color:var(--text-primary);margin-bottom:10px}
         .room-meta{display:flex;gap:16px;margin-bottom:12px}
         .room-meta span{display:flex;align-items:center;gap:5px;font-size:.8rem;color:var(--text-secondary)}
-        .room-meta span i{width:14px;height:14px;color:var(--gold)}
+        .room-meta span i, 
+        .room-meta span svg{width:14px;height:14px;color:var(--gold)}
         .room-amenities{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
         .room-amenities .amenity-tag{background:rgba(212,168,83,.08);color:var(--text-secondary);font-size:.7rem;padding:4px 10px;border-radius:20px;border:1px solid rgba(212,168,83,.1)}
         .room-total-price{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border-color)}
@@ -58,7 +60,8 @@
         .guest-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:36px}
         .booking-summary-panel{background:rgba(212,168,83,.05);border:1px solid rgba(212,168,83,.12);border-radius:var(--radius-md);padding:28px}
         .summary-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:1.1rem;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-        .summary-title i{width:18px;height:18px}
+        .summary-title i, 
+        .summary-title svg{width:18px;height:18px}
         .summary-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(212,168,83,.08);font-size:.9rem}
         .summary-row .label{color:var(--text-secondary)}
         .summary-row .value{color:var(--text-primary);font-weight:500}
@@ -67,7 +70,8 @@
         .summary-total .value{color:var(--gold)}
         .confirmation-panel{text-align:center;padding:32px 0}
         .confirm-checkmark{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,rgba(74,222,128,.15),rgba(74,222,128,.05));border:3px solid var(--success);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:popIn .6s cubic-bezier(.175,.885,.32,1.275)}
-        .confirm-checkmark i{width:40px;height:40px;color:var(--success)}
+        .confirm-checkmark i, 
+        .confirm-checkmark svg{width:40px;height:40px;color:var(--success)}
         @keyframes popIn{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
         .confirmation-panel h2{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
         .booking-ref{display:inline-block;background:rgba(212,168,83,.1);border:1px solid rgba(212,168,83,.2);padding:8px 24px;border-radius:var(--radius-sm);color:var(--gold);font-weight:600;font-size:1.1rem;letter-spacing:1px;margin:16px 0 32px}
@@ -78,7 +82,8 @@
         .rooms-loading,.rooms-empty{text-align:center;padding:60px 20px}
         .rooms-loading .spinner{width:40px;height:40px;border:3px solid var(--border-color);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
         @keyframes spin{to{transform:rotate(360deg)}}
-        .rooms-empty i{width:48px;height:48px;color:var(--text-muted);margin-bottom:16px}
+        .rooms-empty i, 
+        .rooms-empty svg{width:48px;height:48px;color:var(--text-muted);margin-bottom:16px}
         .rooms-empty p{color:var(--text-secondary)}
         .no-availability{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:var(--radius-md);padding:20px;text-align:center;color:var(--error);margin-bottom:24px}
         @media(max-width:768px){.booking-hero h1{font-size:2rem}.booking-card{padding:28px 20px}.date-grid{grid-template-columns:1fr}.guest-layout{grid-template-columns:1fr}.rooms-grid{grid-template-columns:1fr}.step-indicator{gap:0;padding:0 10px}.step-label{font-size:.65rem}.step-circle{width:42px;height:42px}.confirm-actions{flex-direction:column;align-items:center}.step-actions{flex-direction:column}.step-actions .btn{width:100%}}
