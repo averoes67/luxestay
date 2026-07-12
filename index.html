@@ -30,13 +30,15 @@
       </div>
 
       <div class="nav-actions">
-        <div class="lang-switcher">
-          <i data-lucide="globe" style="width:14px;height:14px;color:var(--text-secondary);"></i>
-          <select id="langSwitcher" onchange="changeLanguage(this.value)">
-            <option value="en">EN</option>
-            <option value="ja">JA</option>
-          </select>
-        </div>
+        <div class="lang-switcher-modern">
+            <button class="lang-btn" onclick="toggleLangMenu()" id="currentLangBtn">
+              <i data-lucide="globe" style="width:16px;height:16px;"></i> <span id="currentLangText">EN</span>
+            </button>
+            <div class="lang-menu" id="langMenu">
+              <div class="lang-option" onclick="selectLanguage('en')">English (EN)</div>
+              <div class="lang-option" onclick="selectLanguage('id')">Indonesia (ID)</div>
+            </div>
+          </div>
 
         <!-- Guest (not logged in) -->
         <div class="nav-auth-guest">
