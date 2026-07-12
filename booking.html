@@ -87,6 +87,15 @@
         .rooms-empty p{color:var(--text-secondary)}
         .no-availability{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:var(--radius-md);padding:20px;text-align:center;color:var(--error);margin-bottom:24px}
         @media(max-width:768px){.booking-hero h1{font-size:2rem}.booking-card{padding:28px 20px}.date-grid{grid-template-columns:1fr}.guest-layout{grid-template-columns:1fr}.rooms-grid{grid-template-columns:1fr}.step-indicator{gap:0;padding:0 10px}.step-label{font-size:.65rem}.step-circle{width:42px;height:42px}.confirm-actions{flex-direction:column;align-items:center}.step-actions{flex-direction:column}.step-actions .btn{width:100%}}
+    
+        .payment-layout { display: flex; gap: 32px; align-items: flex-start; }
+        .payment-form { flex: 2; }
+        .payment-summary { flex: 1; }
+        @media(max-width:768px) {
+            .payment-layout { flex-direction: column; }
+            .payment-form, .payment-summary { width: 100%; flex: none; }
+        }
+
     </style>
 
   <style>
@@ -309,32 +318,32 @@
         <div class="step-panel" id="step4">
             <h2 class="step-title" data-i18n="payment_details">Payment Details</h2>
             <p class="step-subtitle" data-i18n="complete_your_reservation_secu">Complete your reservation securely.</p>
-            <div class="payment-layout" style="display:flex; gap:32px; align-items:flex-start;">
-                <div class="payment-form" style="flex:2;">
+            <div class="payment-layout">
+                <div class="payment-form">
                     <div class="payment-methods" style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; cursor:pointer; background:rgba(212,168,83,.05);" data-i18n="credit_card">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; cursor:pointer; background:rgba(212,168,83,.05);">
                             <input type="radio" name="payment_method" value="cc" checked="" style="margin-right:16px;">
                             <i data-lucide="credit-card" style="width:24px;height:24px;color:var(--gold);margin-right:16px;"></i>
-                            <div style="font-weight:600; color:var(--text-primary);">Credit Card</div>
+                            <div style="font-weight:600; color:var(--text-primary);" data-i18n="credit_card">Credit Card</div>
                         </label>
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;" data-i18n="bank_transfer">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
                             <input type="radio" name="payment_method" value="bank" style="margin-right:16px;">
                             <i data-lucide="building" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
-                            <div style="font-weight:600; color:var(--text-primary);">Bank Transfer</div>
+                            <div style="font-weight:600; color:var(--text-primary);" data-i18n="bank_transfer">Bank Transfer</div>
                         </label>
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;" data-i18n="e_wallet">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
                             <input type="radio" name="payment_method" value="ewallet" style="margin-right:16px;">
                             <i data-lucide="smartphone" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
-                            <div style="font-weight:600; color:var(--text-primary);">E-Wallet</div>
+                            <div style="font-weight:600; color:var(--text-primary);" data-i18n="e_wallet">E-Wallet</div>
                         </label>
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;" data-i18n="cash">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
                             <input type="radio" name="payment_method" value="cash" style="margin-right:16px;">
                             <i data-lucide="banknote" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
-                            <div style="font-weight:600; color:var(--text-primary);">Cash</div>
+                            <div style="font-weight:600; color:var(--text-primary);" data-i18n="cash">Cash</div>
                         </label>
                     </div>
                 </div>
-                <div class="payment-summary" style="flex:1; background:var(--bg-card); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius-md);">
+                <div class="payment-summary" style=" background:var(--bg-card); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius-md);">
                     <div style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:600; margin-bottom:16px;">Amount Due</div>
                     <div id="paymentAmountDue" style="font-size:2rem; color:var(--gold); font-weight:700; font-family:'Outfit',sans-serif; margin-bottom:24px;">$0</div>
                     <button class="btn btn-primary w-full" id="processPaymentBtn" data-i18n="pay_now">
