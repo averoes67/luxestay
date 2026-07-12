@@ -61,18 +61,22 @@ async function getAction(c) {
 
 // 1. auth.php
 app.all('/auth.php', async (c) => {
-  const action = await getAction(c)
-  switch (action) {
-    case 'check':
-      return checkHandler(c)
-    case 'login':
-      return loginHandler(c)
-    case 'register':
-      return registerHandler(c)
-    case 'logout':
-      return logoutHandler(c)
-    default:
-      return c.json({ success: false, error: 'Invalid action. Supported: login, register, logout, check.' }, 400)
+  try {
+    const action = await getAction(c)
+    switch (action) {
+      case 'check':
+        return checkHandler(c)
+      case 'login':
+        return loginHandler(c)
+      case 'register':
+        return registerHandler(c)
+      case 'logout':
+        return logoutHandler(c)
+      default:
+        return c.json({ success: false, error: 'Invalid action. Supported: login, register, logout, check.' }, 400)
+    }
+  } catch (err) {
+    return c.json({ success: false, error: 'auth.php crash: ' + err.message, stack: err.stack }, 500)
   }
 })
 
