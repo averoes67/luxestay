@@ -2097,6 +2097,7 @@ textarea {
   .nav-auth {
     display: none !important;
   }
+  
   .nav-actions.mobile-open {
     display: flex !important;
     position: fixed;
@@ -2106,8 +2107,10 @@ textarea {
     z-index: 160;
     gap: 16px;
   }
-  .nav-auth-guest.mobile-open,
-  .nav-auth-user.mobile-open,
+  
+  /* Only show auth blocks if they match the auth state */
+  body.logged-out .nav-auth-guest.mobile-open,
+  body.logged-in .nav-auth-user.mobile-open,
   .nav-auth.mobile-open {
     display: flex !important;
     position: fixed;
@@ -2120,6 +2123,7 @@ textarea {
     width: 80%;
     align-items: center;
   }
+  
   .nav-auth-guest.mobile-open .btn,
   .nav-auth-user.mobile-open .btn,
   .nav-auth.mobile-open .btn {

@@ -265,21 +265,26 @@
   };
 
   // ── Auth State Checker ────────────────────────────────────
-  window.checkAuth = async function () {
-    try {
-      const data = await apiRequest('auth.php?action=check');
-      if ((data.loggedIn || data.authenticated) && data.user) {
-        updateNavForAuth(data.user);
-        return data.user;
+    window.checkAuth = async function () {
+      try {
+        const data = await apiRequest('auth.php?action=check');
+        if ((data.loggedIn || data.authenticated) && data.user) {
+          updateNavForAuth(data.user);
+          return data.user;
+        }
+      } catch (e) {
+        // Not logged in — that's fine
       }
-    } catch (e) {
-      // Not logged in — that's fine
-    }
-    return null;
-  };
+      document.body.classList.add('logged-out');
+      document.body.classList.remove('logged-in');
+      return null;
+    };
 
-  function updateNavForAuth(user) {
-    const loginBtns = document.querySelectorAll('.nav-auth-guest');
+    function updateNavForAuth(user) {
+      document.body.classList.add('logged-in');
+      document.body.classList.remove('logged-out');
+      
+      const loginBtns = document.querySelectorAll('.nav-auth-guest');
     const userBtns = document.querySelectorAll('.nav-auth-user');
     const userNameEls = document.querySelectorAll('.nav-user-name');
 
