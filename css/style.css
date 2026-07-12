@@ -14,6 +14,7 @@
 
 /* ── Custom Properties (Design Tokens) ────────────────────── */
 :root {
+  color-scheme: dark;
   /* Backgrounds */
   --bg-primary: #0a0e1a;
   --bg-secondary: #141824;
@@ -2426,9 +2427,8 @@ textarea {
   }
 }
 
-/* Make date picker icon white for dark theme */
+/* Make date picker icon white for dark theme natively via color-scheme */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(0.9);
   cursor: pointer;
 }
 
