@@ -11,10 +11,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "hono": "^4.12.29",
     "wrangler": "^4.110.0"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.3"
+    "bcryptjs": "^3.0.3",
+    "hono": "^4.12.29"
   }
 }

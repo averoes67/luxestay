@@ -5,6 +5,7 @@ import { authApp, checkHandler, loginHandler, registerHandler, logoutHandler } f
 import { roomsApp, listRoomsHandler, detailRoomHandler, availabilityRoomHandler } from './rooms'
 import { reservationsApp, createReservationHandler, userReservationsHandler, cancelReservationHandler, payReservationHandler } from './reservations'
 import { reviewsApp, listReviewsHandler, createReviewHandler } from './reviews'
+import setupApp from './setup.js'
 import {
   adminApp,
   adminDashboardHandler,
@@ -33,6 +34,7 @@ app.route('/rooms', roomsApp)
 app.route('/reservations', reservationsApp)
 app.route('/admin', adminApp)
 app.route('/reviews', reviewsApp)
+app.route('/setup', setupApp)
 
 // Helper to get action from body or query
 async function getAction(c) {
