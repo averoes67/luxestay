@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Dashboard — LuxeStay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
         .dashboard-section{padding:140px 0 80px;min-height:100vh}
@@ -89,16 +87,16 @@
 <body>
 <nav class="navbar nav-scrolled">
     <div class="container nav-container">
-        <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+        <a href="index.html" class="logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="rooms.html">Rooms</a>
-            <a href="booking.html">Book Now</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" data-i18n="home">Home</a>
+            <a href="rooms.html" data-i18n="rooms">Rooms</a>
+            <a href="booking.html" data-i18n="book_now">Book Now</a>
+            <a href="contact.html" data-i18n="contact">Contact</a>
         </div>
         <div class="nav-auth" id="navAuth">
-            <a href="login.html" class="btn btn-ghost">Sign In</a>
-            <a href="register.html" class="btn btn-primary">Register</a>
+            <a href="login.html" class="btn btn-ghost" data-i18n="sign_in">Sign In</a>
+            <a href="register.html" class="btn btn-primary" data-i18n="register">Register</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
             <span></span><span></span><span></span>
@@ -110,10 +108,10 @@
     <div class="container">
         <div class="welcome-banner" id="welcomeBanner">
             <div class="welcome-text">
-                <h1>Welcome back, <span id="userName">Guest</span>!</h1>
-                <p>Manage your reservations and plan your next luxury getaway.</p>
+                <h1 data-i18n="welcome_back_guest">Welcome back, <span id="userName" data-i18n="guest">Guest</span>!</h1>
+                <p data-i18n="manage_your_reservations_and_p">Manage your reservations and plan your next luxury getaway.</p>
             </div>
-            <a href="booking.html" class="btn btn-primary"><i data-lucide="plus" style="width:16px;height:16px;"></i> Book a New Stay</a>
+            <a href="booking.html" class="btn btn-primary" data-i18n="book_a_new_stay"><i data-lucide="plus" style="width:16px;height:16px;"></i> Book a New Stay</a>
         </div>
 
         <div class="stats-row">
@@ -142,10 +140,10 @@
 
         <div class="tabs-container">
             <div class="tabs-header">
-                <button class="tab-btn active" data-tab="all">All <span class="tab-count" id="countAll">0</span></button>
-                <button class="tab-btn" data-tab="upcoming">Upcoming <span class="tab-count" id="countUpcoming">0</span></button>
-                <button class="tab-btn" data-tab="completed">Completed <span class="tab-count" id="countCompleted">0</span></button>
-                <button class="tab-btn" data-tab="cancelled">Cancelled <span class="tab-count" id="countCancelled">0</span></button>
+                <button class="tab-btn active" data-tab="all" data-i18n="all_0">All <span class="tab-count" id="countAll">0</span></button>
+                <button class="tab-btn" data-tab="upcoming" data-i18n="upcoming_0">Upcoming <span class="tab-count" id="countUpcoming">0</span></button>
+                <button class="tab-btn" data-tab="completed" data-i18n="completed_0">Completed <span class="tab-count" id="countCompleted">0</span></button>
+                <button class="tab-btn" data-tab="cancelled" data-i18n="cancelled_0">Cancelled <span class="tab-count" id="countCancelled">0</span></button>
             </div>
         </div>
 
@@ -155,21 +153,21 @@
 
         <div class="empty-state" id="emptyState" style="display:none;">
             <i data-lucide="calendar-x"></i>
-            <h3>No Reservations Found</h3>
-            <p>You haven't made any bookings yet. Start planning your luxury stay!</p>
-            <a href="rooms.html" class="btn btn-primary">Browse Rooms</a>
+            <h3 data-i18n="no_reservations_found">No Reservations Found</h3>
+            <p data-i18n="you_haven_t_made_any_bookings">You haven't made any bookings yet. Start planning your luxury stay!</p>
+            <a href="rooms.html" class="btn btn-primary" data-i18n="browse_rooms">Browse Rooms</a>
         </div>
 
         <div class="quick-actions">
-            <a href="booking.html" class="quick-action-card">
+            <a href="booking.html" class="quick-action-card" data-i18n="book_a_new_room_reserve_your_n">
                 <i data-lucide="calendar-plus"></i>
-                <h3>Book a New Room</h3>
-                <p>Reserve your next luxury experience</p>
+                <h3 data-i18n="book_a_new_room">Book a New Room</h3>
+                <p data-i18n="reserve_your_next_luxury_exper">Reserve your next luxury experience</p>
             </a>
-            <a href="rooms.html" class="quick-action-card">
+            <a href="rooms.html" class="quick-action-card" data-i18n="browse_rooms_explore_our_colle">
                 <i data-lucide="bed-double"></i>
-                <h3>Browse Rooms</h3>
-                <p>Explore our collection of premium rooms</p>
+                <h3 data-i18n="browse_rooms">Browse Rooms</h3>
+                <p data-i18n="explore_our_collection_of_prem">Explore our collection of premium rooms</p>
             </a>
         </div>
     </div>
@@ -178,36 +176,36 @@
 <div class="modal-overlay" id="cancelModal">
     <div class="modal">
         <div class="modal-header">
-            <h3>Cancel Reservation</h3>
+            <h3 data-i18n="cancel_reservation">Cancel Reservation</h3>
             <button class="modal-close" onclick="closeModal('cancelModal')"><i data-lucide="x"></i></button>
         </div>
         <div class="modal-body">
             <div class="cancel-modal-body">
                 <div class="warning-icon"><i data-lucide="alert-triangle"></i></div>
-                <h3>Are you sure?</h3>
-                <p>This action cannot be undone. Your reservation will be cancelled.</p>
+                <h3 data-i18n="are_you_sure">Are you sure?</h3>
+                <p data-i18n="this_action_cannot_be_undone_y">This action cannot be undone. Your reservation will be cancelled.</p>
                 <div class="cancel-details" id="cancelDetails"></div>
             </div>
         </div>
         <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;">
-            <button class="btn btn-ghost" onclick="closeModal('cancelModal')">Keep Booking</button>
-            <button class="btn-danger" id="confirmCancelBtn">Cancel Reservation</button>
+            <button class="btn btn-ghost" onclick="closeModal('cancelModal')" data-i18n="keep_booking">Keep Booking</button>
+            <button class="btn-danger" id="confirmCancelBtn" data-i18n="cancel_reservation">Cancel Reservation</button>
         </div>
     </div>
     </div>
-</div>
+
 
 <!-- Review Modal -->
 <div class="modal-overlay" id="reviewModal">
     <div class="modal">
         <div class="modal-header">
-            <h3>Leave a Review</h3>
+            <h3 data-i18n="leave_a_review">Leave a Review</h3>
             <button class="modal-close" onclick="closeModal('reviewModal')"><i data-lucide="x"></i></button>
         </div>
         <div class="modal-body">
             <input type="hidden" id="reviewRoomTypeId">
             <div style="margin-bottom:16px;">
-                <label>Rating</label>
+                <label data-i18n="rating">Rating</label>
                 <div class="review-stars-input" id="reviewStarsInput" style="display:flex;gap:8px;font-size:1.5rem;color:var(--text-muted);cursor:pointer;margin-top:8px;">
                     <i data-lucide="star" data-val="1"></i>
                     <i data-lucide="star" data-val="2"></i>
@@ -218,13 +216,13 @@
                 <input type="hidden" id="reviewRating" value="0">
             </div>
             <div class="form-group">
-                <label for="reviewComment">Your Experience</label>
+                <label for="reviewComment" data-i18n="your_experience">Your Experience</label>
                 <textarea id="reviewComment" rows="4" placeholder="Tell us about your stay..."></textarea>
             </div>
         </div>
         <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;">
-            <button class="btn btn-ghost" onclick="closeModal('reviewModal')">Cancel</button>
-            <button class="btn btn-primary" id="submitReviewBtn">Submit Review</button>
+            <button class="btn btn-ghost" onclick="closeModal('reviewModal')" data-i18n="cancel">Cancel</button>
+            <button class="btn btn-primary" id="submitReviewBtn" data-i18n="submit_review">Submit Review</button>
         </div>
     </div>
 </div>
@@ -232,29 +230,29 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="index.html" class="logo">LUXE<span>STAY</span></a>
-                <p class="footer-desc">Experience unparalleled luxury and world-class hospitality at every stay.</p>
+                <a href="index.html" class="logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
+                <p class="footer-desc" data-i18n="experience_unparalleled_luxury">Experience unparalleled luxury and world-class hospitality at every stay.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <a href="rooms.html">Our Rooms</a>
-                <a href="booking.html">Book Now</a>
-                <a href="contact.html">Contact Us</a>
+                <a href="rooms.html" data-i18n="our_rooms">Our Rooms</a>
+                <a href="booking.html" data-i18n="book_now">Book Now</a>
+                <a href="contact.html" data-i18n="contact_us">Contact Us</a>
             </div>
             <div class="footer-col">
                 <h4>Account</h4>
-                <a href="login.html">Sign In</a>
-                <a href="register.html">Register</a>
-                <a href="dashboard.html">Dashboard</a>
+                <a href="login.html" data-i18n="sign_in">Sign In</a>
+                <a href="register.html" data-i18n="register">Register</a>
+                <a href="dashboard.html" data-i18n="dashboard">Dashboard</a>
             </div>
             <div class="footer-col">
                 <h4>Contact</h4>
-                <p><i data-lucide="map-pin" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> 123 Luxury Avenue</p>
+                <p data-i18n="123_luxury_avenue"><i data-lucide="map-pin" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> 123 Luxury Avenue</p>
                 <p><i data-lucide="phone" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> +1 (555) 123-4567</p>
-                <p><i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> info@luxestay.com</p>
+                <p data-i18n="info_luxestay_com"><i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> info@luxestay.com</p>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2026 LuxeStay. All rights reserved.</p></div>
+        <div class="footer-bottom"><p data-i18n="_2026_luxestay_all_rights_rese">© 2026 LuxeStay. All rights reserved.</p></div>
     </div>
 </footer>
 
@@ -262,5 +260,7 @@
 <script src="js/app.js"></script>
 <script src="js/dashboard.js"></script>
 
-</body>
-</html>
+
+
+<script src="js/i18n.js"></script>
+</body></html>

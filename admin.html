@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard — LuxeStay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin.css">
 </head>
@@ -20,30 +18,30 @@
     <!-- ── Sidebar ── -->
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-header">
-            <a href="index.html" class="logo">LUXE<span>STAY</span></a>
-            <span class="admin-badge">Admin</span>
+            <a href="index.html" class="logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
+            <span class="admin-badge" data-i18n="admin">Admin</span>
         </div>
 
         <nav class="sidebar-nav">
-            <a class="sidebar-nav-item active" data-panel="overview">
+            <a class="sidebar-nav-item active" data-panel="overview" data-i18n="overview">
                 <i data-lucide="layout-dashboard"></i> Overview
             </a>
-            <a class="sidebar-nav-item" data-panel="rooms">
+            <a class="sidebar-nav-item" data-panel="rooms" data-i18n="rooms">
                 <i data-lucide="bed-double"></i> Rooms
             </a>
-            <a class="sidebar-nav-item" data-panel="reservations">
+            <a class="sidebar-nav-item" data-panel="reservations" data-i18n="reservations">
                 <i data-lucide="calendar-check"></i> Reservations
             </a>
-            <a class="sidebar-nav-item" data-panel="guests">
+            <a class="sidebar-nav-item" data-panel="guests" data-i18n="guests">
                 <i data-lucide="users"></i> Guests
             </a>
-            <a class="sidebar-nav-item" data-panel="revenue">
+            <a class="sidebar-nav-item" data-panel="revenue" data-i18n="revenue">
                 <i data-lucide="trending-up"></i> Revenue
             </a>
         </nav>
 
         <div class="sidebar-footer">
-            <a href="index.html"><i data-lucide="arrow-left"></i> Back to Site</a>
+            <a href="index.html" data-i18n="back_to_site"><i data-lucide="arrow-left"></i> Back to Site</a>
         </div>
     </aside>
 
@@ -54,14 +52,14 @@
         <header class="admin-topbar">
             <div style="display:flex;align-items:center;gap:16px;">
                 <button class="sidebar-toggle" id="sidebarToggle"><i data-lucide="menu"></i></button>
-                <h2 id="panelTitle">Overview</h2>
+                <h2 id="panelTitle" data-i18n="overview">Overview</h2>
             </div>
             <div class="admin-topbar-right">
                 <div class="admin-user">
                     <div class="admin-user-avatar" id="adminAvatar">A</div>
-                    <span id="adminName">Admin</span>
+                    <span id="adminName" data-i18n="admin">Admin</span>
                 </div>
-                <button class="admin-logout-btn" id="adminLogout">
+                <button class="admin-logout-btn" id="adminLogout" data-i18n="logout">
                     <i data-lucide="log-out"></i> Logout
                 </button>
             </div>
@@ -133,13 +131,13 @@
                         <table class="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Guest</th>
-                                    <th>Room</th>
-                                    <th>Check-in</th>
-                                    <th>Check-out</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th data-i18n="guest">Guest</th>
+                                    <th data-i18n="room">Room</th>
+                                    <th data-i18n="check_in">Check-in</th>
+                                    <th data-i18n="check_out">Check-out</th>
+                                    <th data-i18n="amount">Amount</th>
+                                    <th data-i18n="status">Status</th>
+                                    <th data-i18n="action">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="recentReservationsBody">
@@ -186,12 +184,12 @@
                         <table class="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Room Number</th>
-                                    <th>Floor</th>
-                                    <th>Type</th>
-                                    <th>Price/Night</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th data-i18n="room_number">Room Number</th>
+                                    <th data-i18n="floor">Floor</th>
+                                    <th data-i18n="type">Type</th>
+                                    <th data-i18n="price_night">Price/Night</th>
+                                    <th data-i18n="status">Status</th>
+                                    <th data-i18n="actions">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="roomsTableBody">
@@ -208,7 +206,7 @@
 
                 <div class="filter-bar">
                     <div class="form-group">
-                        <label>Status</label>
+                        <label data-i18n="status">Status</label>
                         <select id="filterStatus">
                             <option value="">All Statuses</option>
                             <option value="pending">Pending</option>
@@ -229,15 +227,15 @@
                         <table class="admin-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Guest</th>
-                                    <th>Room</th>
-                                    <th>Check-in</th>
-                                    <th>Check-out</th>
-                                    <th>Guests</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th data-i18n="id">ID</th>
+                                    <th data-i18n="guest">Guest</th>
+                                    <th data-i18n="room">Room</th>
+                                    <th data-i18n="check_in">Check-in</th>
+                                    <th data-i18n="check_out">Check-out</th>
+                                    <th data-i18n="guests">Guests</th>
+                                    <th data-i18n="amount">Amount</th>
+                                    <th data-i18n="status">Status</th>
+                                    <th data-i18n="actions">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="reservationsTableBody">
@@ -265,11 +263,11 @@
                         <table class="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Total Bookings</th>
-                                    <th>Total Spent</th>
+                                    <th data-i18n="name">Name</th>
+                                    <th data-i18n="email">Email</th>
+                                    <th data-i18n="phone">Phone</th>
+                                    <th data-i18n="total_bookings">Total Bookings</th>
+                                    <th data-i18n="total_spent">Total Spent</th>
                                 </tr>
                             </thead>
                             <tbody id="guestsTableBody">
@@ -286,11 +284,11 @@
             <div class="tab-panel" id="panel-revenue">
 
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
-                    <h3 class="section-title" style="margin-bottom:0;">Revenue Analytics</h3>
+                    <h3 class="section-title" style="margin-bottom:0;" data-i18n="revenue_analytics">Revenue Analytics</h3>
                     <div class="date-range-btns">
-                        <button class="range-btn" data-days="7">7 Days</button>
-                        <button class="range-btn active" data-days="30">30 Days</button>
-                        <button class="range-btn" data-days="90">90 Days</button>
+                        <button class="range-btn" data-days="7" data-i18n="7_days">7 Days</button>
+                        <button class="range-btn active" data-days="30" data-i18n="30_days">30 Days</button>
+                        <button class="range-btn" data-days="90" data-i18n="90_days">90 Days</button>
                     </div>
                 </div>
 
@@ -341,8 +339,8 @@
                             <table class="admin-table">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Revenue</th>
+                                        <th data-i18n="date">Date</th>
+                                        <th data-i18n="revenue">Revenue</th>
                                     </tr>
                                 </thead>
                                 <tbody id="revenueTableBody">
@@ -358,7 +356,7 @@
         </main>
 
         <footer class="admin-footer">
-            &copy; 2026 LuxeStay Admin Panel. All rights reserved.
+            © 2026 LuxeStay Admin Panel. All rights reserved.
         </footer>
     </div>
 
@@ -368,26 +366,26 @@
 <div class="modal-overlay" id="editPriceModal">
     <div class="modal admin-modal">
         <div class="modal-header">
-            <h3>Edit Room Price</h3>
+            <h3 data-i18n="edit_room_price">Edit Room Price</h3>
             <button class="modal-close" onclick="closeModal('editPriceModal')"><i data-lucide="x"></i></button>
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <label>Room Type</label>
+                <label data-i18n="room_type">Room Type</label>
                 <p style="color:var(--text-primary);font-weight:600;" id="editRoomTypeName">—</p>
             </div>
             <div class="form-group">
-                <label>Current Price</label>
+                <label data-i18n="current_price">Current Price</label>
                 <div class="current-price" id="editCurrentPrice">Rp 0</div>
             </div>
             <div class="form-group">
-                <label for="newPriceInput">New Price per Night (IDR Base/USD Equivalent)</label>
+                <label for="newPriceInput" data-i18n="new_price_per_night_idr_base_u">New Price per Night (IDR Base/USD Equivalent)</label>
                 <input type="number" id="newPriceInput" min="1" step="0.01" placeholder="Enter new price">
             </div>
         </div>
         <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;">
-            <button class="btn btn-ghost" onclick="closeModal('editPriceModal')">Cancel</button>
-            <button class="btn btn-primary" id="savePriceBtn">Save Price</button>
+            <button class="btn btn-ghost" onclick="closeModal('editPriceModal')" data-i18n="cancel">Cancel</button>
+            <button class="btn btn-primary" id="savePriceBtn" data-i18n="save_price">Save Price</button>
         </div>
     </div>
 </div>
@@ -397,5 +395,7 @@
 <script src="js/app.js"></script>
 <script src="js/admin.js"></script>
 
-</body>
-</html>
+
+
+<script src="js/i18n.js"></script>
+</body></html>

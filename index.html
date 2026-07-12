@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="LuxeStay — Experience true luxury at our world-class hotel. Elegant rooms, fine dining, spa, and unforgettable hospitality await you.">
@@ -9,8 +7,8 @@
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -22,31 +20,39 @@
        ═══════════════════════════════════════════════════════════ -->
   <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+      <a href="index.html" class="nav-logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
 
       <div class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="rooms.html">Rooms</a>
-        <a href="#amenities">Amenities</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html" class="active" data-i18n="home">Home</a>
+        <a href="rooms.html" data-i18n="rooms">Rooms</a>
+        <a href="#amenities" data-i18n="amenities">Amenities</a>
+        <a href="#contact" data-i18n="contact">Contact</a>
       </div>
 
       <div class="nav-actions">
+        <div class="lang-switcher">
+          <i data-lucide="globe" style="width:14px;height:14px;color:var(--text-secondary);"></i>
+          <select id="langSwitcher" onchange="changeLanguage(this.value)">
+            <option value="en">EN</option>
+            <option value="ja">JA</option>
+          </select>
+        </div>
+
         <!-- Guest (not logged in) -->
         <div class="nav-auth-guest">
-          <a href="login.html" class="btn btn-ghost btn-sm">
+          <a href="login.html" class="btn btn-ghost btn-sm" data-i18n="login">
             <i data-lucide="log-in"></i> Login
           </a>
-          <a href="rooms.html" class="btn btn-primary btn-sm">Book Now</a>
+          <a href="rooms.html" class="btn btn-primary btn-sm" data-i18n="book_now">Book Now</a>
         </div>
         <!-- User (logged in — hidden by default) -->
         <div class="nav-auth-user" style="display:none;">
-          <span class="nav-user">
+          <span class="nav-user" data-i18n="guest">
             <i data-lucide="user"></i>
-            <span class="nav-user-name">Guest</span>
+            <span class="nav-user-name" data-i18n="guest">Guest</span>
           </span>
-          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
-          <button class="btn btn-ghost btn-sm btn-logout">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" data-i18n="dashboard">Dashboard</a>
+          <button class="btn btn-ghost btn-sm btn-logout" data-i18n="logout">
             <i data-lucide="log-out"></i> Logout
           </button>
         </div>
@@ -73,16 +79,16 @@
     </div>
 
     <div class="hero-content">
-      <span class="hero-tagline">Experience True Luxury</span>
-      <h1 class="hero-title">Where <em>Elegance</em><br>Meets Comfort</h1>
-      <p class="hero-subtitle">
+      <span class="hero-tagline" data-i18n="experience_true_luxury">Experience True Luxury</span>
+      <h1 class="hero-title" data-i18n="where_elegancemeets_comfort">Where <em>Elegance</em><br>Meets Comfort</h1>
+      <p class="hero-subtitle" data-i18n="immerse_yourself_in_unparallel">
         Immerse yourself in unparalleled sophistication. From our exquisitely designed suites to world-class amenities, every moment at LuxeStay is crafted for perfection.
       </p>
       <div class="hero-buttons">
-        <a href="rooms.html" class="btn btn-primary btn-lg">
+        <a href="rooms.html" class="btn btn-primary btn-lg" data-i18n="explore_rooms">
           <i data-lucide="door-open"></i> Explore Rooms
         </a>
-        <a href="#amenities" class="btn btn-secondary btn-lg">
+        <a href="#amenities" class="btn btn-secondary btn-lg" data-i18n="virtual_tour">
           <i data-lucide="play-circle"></i> Virtual Tour
         </a>
       </div>
@@ -91,29 +97,29 @@
       <div class="quick-search-bar animate-on-scroll delay-1" style="margin-top:40px; background:var(--bg-card); padding:20px; border-radius:var(--radius-lg); backdrop-filter:blur(20px); border:1px solid var(--border-color); display:inline-block; text-align:left;">
         <form id="quickSearchForm" action="booking.html" method="GET" style="display:flex; gap:16px; align-items:flex-end; flex-wrap:wrap;">
           <div class="search-field" style="display:flex; flex-direction:column; gap:8px;">
-            <label for="qsCheckIn" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Check-in</label>
-            <input type="date" id="qsCheckIn" name="check_in" required style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:140px;">
+            <label for="qsCheckIn" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;" data-i18n="check_in">Check-in</label>
+            <input type="date" id="qsCheckIn" name="check_in" required="" style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:140px;">
           </div>
           <div class="search-field" style="display:flex; flex-direction:column; gap:8px;">
-            <label for="qsCheckOut" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Check-out</label>
-            <input type="date" id="qsCheckOut" name="check_out" required style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:140px;">
+            <label for="qsCheckOut" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;" data-i18n="check_out">Check-out</label>
+            <input type="date" id="qsCheckOut" name="check_out" required="" style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:140px;">
           </div>
           <div class="search-field" style="display:flex; flex-direction:column; gap:8px;">
-            <label for="qsGuests" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Guests</label>
-            <select id="qsGuests" name="guests" required style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:120px; appearance:none;">
+            <label for="qsGuests" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;" data-i18n="guests">Guests</label>
+            <select id="qsGuests" name="guests" required="" style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:120px; appearance:none;">
               <option value="1" style="color:#000;">1 Guest</option>
-              <option value="2" selected style="color:#000;">2 Guests</option>
+              <option value="2" selected="" style="color:#000;">2 Guests</option>
               <option value="3" style="color:#000;">3 Guests</option>
               <option value="4" style="color:#000;">4 Guests</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary" style="padding:10px 24px; height:42px;"><i data-lucide="search" style="width:18px;height:18px;"></i> Search</button>
+          <button type="submit" class="btn btn-primary" style="padding:10px 24px; height:42px;" data-i18n="search"><i data-lucide="search" style="width:18px;height:18px;"></i> Search</button>
         </form>
       </div>
     </div>
 
     <div class="scroll-indicator">
-      <span>Scroll</span>
+      <span data-i18n="scroll">Scroll</span>
       <i data-lucide="chevron-down"></i>
     </div>
   </section>
@@ -124,10 +130,10 @@
   <section class="section-padding" id="rooms">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <span class="section-tag">Accommodations</span>
-        <h2>Our Finest Accommodations</h2>
+        <span class="section-tag" data-i18n="accommodations">Accommodations</span>
+        <h2 data-i18n="our_finest_accommodations">Our Finest Accommodations</h2>
         <div class="accent-line"></div>
-        <p>Each room is a masterpiece of design, blending timeless elegance with modern comfort for an unforgettable stay.</p>
+        <p data-i18n="each_room_is_a_masterpiece_of">Each room is a masterpiece of design, blending timeless elegance with modern comfort for an unforgettable stay.</p>
       </div>
 
       <div class="rooms-grid" id="featuredRoomsGrid">
@@ -137,7 +143,7 @@
       </div>
 
       <div class="text-center mt-xl animate-on-scroll">
-        <a href="rooms.html" class="btn btn-ghost">
+        <a href="rooms.html" class="btn btn-ghost" data-i18n="view_all_rooms">
           View All Rooms <i data-lucide="arrow-right"></i>
         </a>
       </div>
@@ -150,10 +156,10 @@
   <section class="amenities-section section-padding" id="amenities">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <span class="section-tag">Services</span>
-        <h2>World-Class Amenities</h2>
+        <span class="section-tag" data-i18n="services">Services</span>
+        <h2 data-i18n="world_class_amenities">World-Class Amenities</h2>
         <div class="accent-line"></div>
-        <p>Indulge in an array of premium services designed to elevate every aspect of your stay.</p>
+        <p data-i18n="indulge_in_an_array_of_premium">Indulge in an array of premium services designed to elevate every aspect of your stay.</p>
       </div>
 
       <div class="amenities-grid">
@@ -162,7 +168,7 @@
             <i data-lucide="waves"></i>
           </div>
           <h4>Infinity Pool</h4>
-          <p>A stunning rooftop infinity pool overlooking the city skyline, open year-round with temperature-controlled water.</p>
+          <p data-i18n="a_stunning_rooftop_infinity_po">A stunning rooftop infinity pool overlooking the city skyline, open year-round with temperature-controlled water.</p>
         </div>
 
         <div class="amenity-card animate-on-scroll delay-2">
@@ -170,7 +176,7 @@
             <i data-lucide="sparkles"></i>
           </div>
           <h4>Luxury Spa</h4>
-          <p>Rejuvenate your senses with our award-winning spa, offering bespoke treatments using the finest organic products.</p>
+          <p data-i18n="rejuvenate_your_senses_with_ou">Rejuvenate your senses with our award-winning spa, offering bespoke treatments using the finest organic products.</p>
         </div>
 
         <div class="amenity-card animate-on-scroll delay-3">
@@ -178,7 +184,7 @@
             <i data-lucide="utensils"></i>
           </div>
           <h4>Fine Dining</h4>
-          <p>Savour culinary masterpieces prepared by Michelin-starred chefs in our elegant restaurants and private dining rooms.</p>
+          <p data-i18n="savour_culinary_masterpieces_p">Savour culinary masterpieces prepared by Michelin-starred chefs in our elegant restaurants and private dining rooms.</p>
         </div>
 
         <div class="amenity-card animate-on-scroll delay-1">
@@ -186,7 +192,7 @@
             <i data-lucide="dumbbell"></i>
           </div>
           <h4>Fitness Center</h4>
-          <p>State-of-the-art gym equipped with premium machines, personal trainers, and yoga studios for your wellness journey.</p>
+          <p data-i18n="state_of_the_art_gym_equipped">State-of-the-art gym equipped with premium machines, personal trainers, and yoga studios for your wellness journey.</p>
         </div>
 
         <div class="amenity-card animate-on-scroll delay-2">
@@ -194,7 +200,7 @@
             <i data-lucide="wifi"></i>
           </div>
           <h4>Free WiFi</h4>
-          <p>High-speed fiber internet throughout the property, ensuring seamless connectivity for work and leisure.</p>
+          <p data-i18n="high_speed_fiber_internet_thro">High-speed fiber internet throughout the property, ensuring seamless connectivity for work and leisure.</p>
         </div>
 
         <div class="amenity-card animate-on-scroll delay-3">
@@ -202,7 +208,7 @@
             <i data-lucide="bell"></i>
           </div>
           <h4>24/7 Concierge</h4>
-          <p>Our dedicated concierge team is available around the clock to fulfil any request and curate unforgettable experiences.</p>
+          <p data-i18n="our_dedicated_concierge_team_i">Our dedicated concierge team is available around the clock to fulfil any request and curate unforgettable experiences.</p>
         </div>
       </div>
     </div>
@@ -240,10 +246,10 @@
   <section class="testimonials-section section-padding">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <span class="section-tag">Testimonials</span>
-        <h2>What Our Guests Say</h2>
+        <span class="section-tag" data-i18n="testimonials">Testimonials</span>
+        <h2 data-i18n="what_our_guests_say">What Our Guests Say</h2>
         <div class="accent-line"></div>
-        <p>Hear from our guests about their unforgettable experiences at LuxeStay.</p>
+        <p data-i18n="hear_from_our_guests_about_the">Hear from our guests about their unforgettable experiences at LuxeStay.</p>
       </div>
 
       <div class="testimonials-grid" id="testimonialsGrid">
@@ -260,9 +266,9 @@
   <section class="cta-section section-padding">
     <div class="container">
       <div class="cta-content animate-on-scroll">
-        <h2>Ready for an <em style="font-style:normal;color:var(--gold)">Unforgettable</em> Stay?</h2>
-        <p>Book your luxury experience today and discover why discerning travelers choose LuxeStay for their most cherished moments.</p>
-        <a href="rooms.html" class="btn btn-primary btn-lg">
+        <h2 data-i18n="ready_for_an_unforgettable_sta">Ready for an <em style="font-style:normal;color:var(--gold)">Unforgettable</em> Stay?</h2>
+        <p data-i18n="book_your_luxury_experience_to">Book your luxury experience today and discover why discerning travelers choose LuxeStay for their most cherished moments.</p>
+        <a href="rooms.html" class="btn btn-primary btn-lg" data-i18n="book_your_stay">
           <i data-lucide="calendar-check"></i> Book Your Stay
         </a>
       </div>
@@ -277,8 +283,8 @@
       <div class="footer-grid">
         <!-- Brand Column -->
         <div class="footer-brand">
-          <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
-          <p>Where elegance meets comfort. Experience world-class hospitality in the heart of the city, crafted for the most discerning travelers.</p>
+          <a href="index.html" class="nav-logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
+          <p data-i18n="where_elegance_meets_comfort_e">Where elegance meets comfort. Experience world-class hospitality in the heart of the city, crafted for the most discerning travelers.</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
             <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
@@ -291,11 +297,11 @@
         <div class="footer-column">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="rooms.html">Rooms &amp; Suites</a></li>
-            <li><a href="#amenities">Dining</a></li>
-            <li><a href="#amenities">Spa &amp; Wellness</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="index.html" data-i18n="home">Home</a></li>
+            <li><a href="rooms.html" data-i18n="rooms_suites">Rooms &amp; Suites</a></li>
+            <li><a href="#amenities" data-i18n="dining">Dining</a></li>
+            <li><a href="#amenities" data-i18n="spa_wellness">Spa &amp; Wellness</a></li>
+            <li><a href="#contact" data-i18n="contact_us">Contact Us</a></li>
           </ul>
         </div>
 
@@ -304,13 +310,13 @@
           <h4>Contact</h4>
           <ul>
             <li>
-              <a href="#"><i data-lucide="map-pin"></i> 42 Royal Avenue, Manhattan, NY 10001</a>
+              <a href="#" data-i18n="42_royal_avenue_manhattan_ny_1"><i data-lucide="map-pin"></i> 42 Royal Avenue, Manhattan, NY 10001</a>
             </li>
             <li>
               <a href="tel:+12125550199"><i data-lucide="phone"></i> +1 (212) 555-0199</a>
             </li>
             <li>
-              <a href="mailto:hello@luxestay.com"><i data-lucide="mail"></i> hello@luxestay.com</a>
+              <a href="mailto:hello@luxestay.com" data-i18n="hello_luxestay_com"><i data-lucide="mail"></i> hello@luxestay.com</a>
             </li>
           </ul>
         </div>
@@ -318,9 +324,9 @@
         <!-- Newsletter -->
         <div class="footer-column footer-newsletter">
           <h4>Newsletter</h4>
-          <p>Subscribe for exclusive offers, travel inspiration, and the latest LuxeStay news.</p>
+          <p data-i18n="subscribe_for_exclusive_offers">Subscribe for exclusive offers, travel inspiration, and the latest LuxeStay news.</p>
           <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!','success');">
-            <input type="email" placeholder="Your email address" required>
+            <input type="email" placeholder="Your email address" required="">
             <button type="submit" aria-label="Subscribe">
               <i data-lucide="send"></i>
             </button>
@@ -329,11 +335,11 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 LuxeStay. All rights reserved.</p>
+        <p data-i18n="_2026_luxestay_all_rights_rese">© 2026 LuxeStay. All rights reserved.</p>
         <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Sitemap</a>
+          <a href="#" data-i18n="privacy_policy">Privacy Policy</a>
+          <a href="#" data-i18n="terms_of_service">Terms of Service</a>
+          <a href="#" data-i18n="sitemap">Sitemap</a>
         </div>
       </div>
     </div>
@@ -462,5 +468,7 @@
     }
   </script>
 
-</body>
-</html>
+
+
+<script src="js/i18n.js"></script>
+</body></html>

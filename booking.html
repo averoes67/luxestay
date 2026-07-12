@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Stay — LuxeStay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
         .booking-hero{padding:140px 0 40px;text-align:center}
@@ -89,16 +87,16 @@
 <body>
 <nav class="navbar">
     <div class="container nav-container">
-        <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+        <a href="index.html" class="logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="rooms.html">Rooms</a>
-            <a href="booking.html" class="active">Book Now</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" data-i18n="home">Home</a>
+            <a href="rooms.html" data-i18n="rooms">Rooms</a>
+            <a href="booking.html" class="active" data-i18n="book_now">Book Now</a>
+            <a href="contact.html" data-i18n="contact">Contact</a>
         </div>
         <div class="nav-auth" id="navAuth">
-            <a href="login.html" class="btn btn-ghost">Sign In</a>
-            <a href="register.html" class="btn btn-primary">Register</a>
+            <a href="login.html" class="btn btn-ghost" data-i18n="sign_in">Sign In</a>
+            <a href="register.html" class="btn btn-primary" data-i18n="register">Register</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i data-lucide="menu"></i></button>
     </div>
@@ -106,8 +104,8 @@
 
 <section class="booking-hero">
     <div class="container">
-        <h1>Reserve Your <span>Luxury</span> Experience</h1>
-        <p>Complete your booking in just a few simple steps</p>
+        <h1 data-i18n="reserve_your_luxury_experience">Reserve Your <span data-i18n="luxury">Luxury</span> Experience</h1>
+        <p data-i18n="complete_your_booking_in_just">Complete your booking in just a few simple steps</p>
     </div>
 </section>
 
@@ -115,27 +113,27 @@
     <div class="step-indicator" id="stepIndicator">
         <div class="step-item active" data-step="1">
             <div class="step-circle"><i data-lucide="calendar"></i></div>
-            <span class="step-label">Select Dates</span>
+            <span class="step-label" data-i18n="select_dates">Select Dates</span>
         </div>
         <div class="step-line" id="line1"></div>
         <div class="step-item" data-step="2">
             <div class="step-circle"><i data-lucide="bed-double"></i></div>
-            <span class="step-label">Choose Room</span>
+            <span class="step-label" data-i18n="choose_room">Choose Room</span>
         </div>
         <div class="step-line" id="line2"></div>
         <div class="step-item" data-step="3">
             <div class="step-circle"><i data-lucide="user"></i></div>
-            <span class="step-label">Guest Details</span>
+            <span class="step-label" data-i18n="guest_details">Guest Details</span>
         </div>
         <div class="step-line" id="line3"></div>
         <div class="step-item" data-step="4">
             <div class="step-circle"><i data-lucide="credit-card"></i></div>
-            <span class="step-label">Payment</span>
+            <span class="step-label" data-i18n="payment">Payment</span>
         </div>
         <div class="step-line" id="line4"></div>
         <div class="step-item" data-step="5">
             <div class="step-circle"><i data-lucide="check"></i></div>
-            <span class="step-label">Confirmation</span>
+            <span class="step-label" data-i18n="confirmation">Confirmation</span>
         </div>
     </div>
 </div>
@@ -144,23 +142,23 @@
     <div class="booking-card">
         <!-- Step 1 -->
         <div class="step-panel active" id="step1">
-            <h2 class="step-title">Select Your Dates</h2>
-            <p class="step-subtitle">Choose your check-in and check-out dates to see available rooms.</p>
+            <h2 class="step-title" data-i18n="select_your_dates">Select Your Dates</h2>
+            <p class="step-subtitle" data-i18n="choose_your_check_in_and_check">Choose your check-in and check-out dates to see available rooms.</p>
             <div class="date-grid">
                 <div class="form-group">
-                    <label for="checkIn"><i data-lucide="log-in" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Check-in Date</label>
-                    <input type="date" id="checkIn" required>
+                    <label for="checkIn" data-i18n="check_in_date"><i data-lucide="log-in" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Check-in Date</label>
+                    <input type="date" id="checkIn" required="">
                 </div>
                 <div class="form-group">
-                    <label for="checkOut"><i data-lucide="log-out" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Check-out Date</label>
-                    <input type="date" id="checkOut" required>
+                    <label for="checkOut" data-i18n="check_out_date"><i data-lucide="log-out" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Check-out Date</label>
+                    <input type="date" id="checkOut" required="">
                 </div>
             </div>
             <div class="form-group guest-select">
-                <label for="guestsCount"><i data-lucide="users" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Number of Guests</label>
+                <label for="guestsCount" data-i18n="number_of_guests"><i data-lucide="users" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Number of Guests</label>
                 <select id="guestsCount">
                     <option value="1">1 Guest</option>
-                    <option value="2" selected>2 Guests</option>
+                    <option value="2" selected="">2 Guests</option>
                     <option value="3">3 Guests</option>
                     <option value="4">4 Guests</option>
                     <option value="5">5 Guests</option>
@@ -178,66 +176,66 @@
                 </div>
             </div>
             <div class="step-actions" style="justify-content:flex-end;">
-                <button class="btn btn-primary" id="searchRoomsBtn"><i data-lucide="search" style="width:16px;height:16px;"></i> Search Available Rooms</button>
+                <button class="btn btn-primary" id="searchRoomsBtn" data-i18n="search_available_rooms"><i data-lucide="search" style="width:16px;height:16px;"></i> Search Available Rooms</button>
             </div>
         </div>
 
         <!-- Step 2 -->
         <div class="step-panel" id="step2">
-            <h2 class="step-title">Choose Your Room</h2>
-            <p class="step-subtitle">Select the perfect room for your stay.</p>
+            <h2 class="step-title" data-i18n="choose_your_room">Choose Your Room</h2>
+            <p class="step-subtitle" data-i18n="select_the_perfect_room_for_yo">Select the perfect room for your stay.</p>
             <div id="roomsContainer">
                 <div class="rooms-loading" id="roomsLoading">
                     <div class="spinner"></div>
-                    <p style="color:var(--text-secondary);">Searching available rooms…</p>
+                    <p style="color:var(--text-secondary);" data-i18n="searching_available_rooms">Searching available rooms…</p>
                 </div>
                 <div class="rooms-grid" id="roomsGrid"></div>
                 <div class="rooms-empty" id="roomsEmpty" style="display:none;">
                     <i data-lucide="bed-double"></i>
-                    <p>No rooms available for the selected dates. Please try different dates.</p>
+                    <p data-i18n="no_rooms_available_for_the_sel">No rooms available for the selected dates. Please try different dates.</p>
                 </div>
             </div>
             <div class="step-actions">
-                <button class="btn btn-ghost" id="backToStep1"><i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back</button>
-                <button class="btn btn-primary" id="toStep3Btn" disabled>Continue <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></button>
+                <button class="btn btn-ghost" id="backToStep1" data-i18n="back"><i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back</button>
+                <button class="btn btn-primary" id="toStep3Btn" disabled="" data-i18n="continue">Continue <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></button>
             </div>
         </div>
 
         <!-- Step 3 -->
         <div class="step-panel" id="step3">
-            <h2 class="step-title">Guest Details</h2>
-            <p class="step-subtitle">Tell us a bit about yourself and any special requests.</p>
+            <h2 class="step-title" data-i18n="guest_details">Guest Details</h2>
+            <p class="step-subtitle" data-i18n="tell_us_a_bit_about_yourself_a">Tell us a bit about yourself and any special requests.</p>
             <div class="guest-layout">
                 <div class="guest-form">
                     <div id="loginPrompt" style="display:none;margin-bottom:24px;">
                         <div style="background:rgba(212,168,83,.08);border:1px solid rgba(212,168,83,.15);border-radius:var(--radius-md);padding:16px;display:flex;align-items:center;gap:12px;">
                             <i data-lucide="info" style="width:20px;height:20px;color:var(--gold);flex-shrink:0;"></i>
                             <div>
-                                <p style="color:var(--text-primary);font-size:.9rem;margin-bottom:4px;">An account will be created for you automatically.</p>
-                                <p style="color:var(--text-secondary);font-size:.85rem;">Already have an account? <a href="login.html" style="color:var(--gold);">Sign in here →</a></p>
+                                <p style="color:var(--text-primary);font-size:.9rem;margin-bottom:4px;" data-i18n="an_account_will_be_created_for">An account will be created for you automatically.</p>
+                                <p style="color:var(--text-secondary);font-size:.85rem;" data-i18n="already_have_an_account_sign_i">Already have an account? <a href="login.html" style="color:var(--gold);" data-i18n="sign_in_here">Sign in here →</a></p>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="guestName">Full Name *</label>
-                        <input type="text" id="guestName" placeholder="Enter your full name" required>
+                        <label for="guestName" data-i18n="full_name">Full Name *</label>
+                        <input type="text" id="guestName" placeholder="Enter your full name" required="">
                     </div>
                     <div class="date-grid">
                         <div class="form-group">
-                            <label for="guestEmail">Email Address *</label>
-                            <input type="email" id="guestEmail" placeholder="your@email.com" required>
+                            <label for="guestEmail" data-i18n="email_address">Email Address *</label>
+                            <input type="email" id="guestEmail" placeholder="your@email.com" required="">
                         </div>
                         <div class="form-group">
-                            <label for="guestPhone">Phone Number</label>
+                            <label for="guestPhone" data-i18n="phone_number">Phone Number</label>
                             <input type="tel" id="guestPhone" placeholder="+1 (555) 000-0000">
                         </div>
                     </div>
                     <div class="form-group" id="guestPasswordGroup">
-                        <label for="guestPassword">Create Password (for your account) *</label>
-                        <input type="password" id="guestPassword" placeholder="Minimum 6 characters" required>
+                        <label for="guestPassword" data-i18n="create_password_for_your_accou">Create Password (for your account) *</label>
+                        <input type="password" id="guestPassword" placeholder="Minimum 6 characters" required="">
                     </div>
                     <div class="form-group">
-                        <label for="specialRequests">Special Requests</label>
+                        <label for="specialRequests" data-i18n="special_requests">Special Requests</label>
                         <textarea id="specialRequests" rows="4" placeholder="Any special requests or preferences…" style="min-height:100px;"></textarea>
                     </div>
                 </div>
@@ -247,34 +245,34 @@
                 </div>
             </div>
             <div class="step-actions">
-                <button class="btn btn-ghost" id="backToStep2"><i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back</button>
-                <button class="btn btn-primary" id="confirmBookingBtn"><i data-lucide="shield-check" style="width:16px;height:16px;"></i> Confirm Booking</button>
+                <button class="btn btn-ghost" id="backToStep2" data-i18n="back"><i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back</button>
+                <button class="btn btn-primary" id="confirmBookingBtn" data-i18n="confirm_booking"><i data-lucide="shield-check" style="width:16px;height:16px;"></i> Confirm Booking</button>
             </div>
         </div>
 
         <!-- Step 4: Payment -->
         <div class="step-panel" id="step4">
-            <h2 class="step-title">Payment Details</h2>
-            <p class="step-subtitle">Complete your reservation securely.</p>
+            <h2 class="step-title" data-i18n="payment_details">Payment Details</h2>
+            <p class="step-subtitle" data-i18n="complete_your_reservation_secu">Complete your reservation securely.</p>
             <div class="payment-layout" style="display:flex; gap:32px; align-items:flex-start;">
                 <div class="payment-form" style="flex:2;">
                     <div class="payment-methods" style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; cursor:pointer; background:rgba(212,168,83,.05);">
-                            <input type="radio" name="payment_method" value="cc" checked style="margin-right:16px;">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; cursor:pointer; background:rgba(212,168,83,.05);" data-i18n="credit_card">
+                            <input type="radio" name="payment_method" value="cc" checked="" style="margin-right:16px;">
                             <i data-lucide="credit-card" style="width:24px;height:24px;color:var(--gold);margin-right:16px;"></i>
                             <div style="font-weight:600; color:var(--text-primary);">Credit Card</div>
                         </label>
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;" data-i18n="bank_transfer">
                             <input type="radio" name="payment_method" value="bank" style="margin-right:16px;">
                             <i data-lucide="building" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
                             <div style="font-weight:600; color:var(--text-primary);">Bank Transfer</div>
                         </label>
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;" data-i18n="e_wallet">
                             <input type="radio" name="payment_method" value="ewallet" style="margin-right:16px;">
                             <i data-lucide="smartphone" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
                             <div style="font-weight:600; color:var(--text-primary);">E-Wallet</div>
                         </label>
-                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;">
+                        <label class="payment-method-card" style="display:flex; align-items:center; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; cursor:pointer;" data-i18n="cash">
                             <input type="radio" name="payment_method" value="cash" style="margin-right:16px;">
                             <i data-lucide="banknote" style="width:24px;height:24px;color:var(--text-secondary);margin-right:16px;"></i>
                             <div style="font-weight:600; color:var(--text-primary);">Cash</div>
@@ -284,7 +282,7 @@
                 <div class="payment-summary" style="flex:1; background:var(--bg-card); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius-md);">
                     <div style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:600; margin-bottom:16px;">Amount Due</div>
                     <div id="paymentAmountDue" style="font-size:2rem; color:var(--gold); font-weight:700; font-family:'Outfit',sans-serif; margin-bottom:24px;">$0</div>
-                    <button class="btn btn-primary w-full" id="processPaymentBtn">
+                    <button class="btn btn-primary w-full" id="processPaymentBtn" data-i18n="pay_now">
                         <i data-lucide="lock" style="width:16px;height:16px;"></i> Pay Now
                     </button>
                     <div style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">
@@ -298,13 +296,13 @@
         <div class="step-panel" id="step5">
             <div class="confirmation-panel">
                 <div class="confirm-checkmark"><i data-lucide="check"></i></div>
-                <h2>Booking Confirmed!</h2>
-                <p style="color:var(--text-secondary);margin-bottom:8px;">Your luxury experience has been reserved and paid.</p>
+                <h2 data-i18n="booking_confirmed">Booking Confirmed!</h2>
+                <p style="color:var(--text-secondary);margin-bottom:8px;" data-i18n="your_luxury_experience_has_bee">Your luxury experience has been reserved and paid.</p>
                 <div class="booking-ref" id="bookingRef">LXS-000000</div>
                 <div class="confirm-details" id="confirmDetails"></div>
                 <div class="confirm-actions">
-                    <a href="dashboard.html" class="btn btn-primary"><i data-lucide="layout-dashboard" style="width:16px;height:16px;"></i> Go to Dashboard</a>
-                    <a href="booking.html" class="btn btn-secondary"><i data-lucide="plus" style="width:16px;height:16px;"></i> Book Another Room</a>
+                    <a href="dashboard.html" class="btn btn-primary" data-i18n="go_to_dashboard"><i data-lucide="layout-dashboard" style="width:16px;height:16px;"></i> Go to Dashboard</a>
+                    <a href="booking.html" class="btn btn-secondary" data-i18n="book_another_room"><i data-lucide="plus" style="width:16px;height:16px;"></i> Book Another Room</a>
                 </div>
             </div>
         </div>
@@ -315,29 +313,29 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="index.html" class="logo">LUXE<span>STAY</span></a>
-                <p class="footer-desc">Experience unparalleled luxury and world-class hospitality at every stay.</p>
+                <a href="index.html" class="logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
+                <p class="footer-desc" data-i18n="experience_unparalleled_luxury">Experience unparalleled luxury and world-class hospitality at every stay.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <a href="rooms.html">Our Rooms</a>
-                <a href="booking.html">Book Now</a>
-                <a href="contact.html">Contact Us</a>
+                <a href="rooms.html" data-i18n="our_rooms">Our Rooms</a>
+                <a href="booking.html" data-i18n="book_now">Book Now</a>
+                <a href="contact.html" data-i18n="contact_us">Contact Us</a>
             </div>
             <div class="footer-col">
                 <h4>Account</h4>
-                <a href="login.html">Sign In</a>
-                <a href="register.html">Register</a>
-                <a href="dashboard.html">Dashboard</a>
+                <a href="login.html" data-i18n="sign_in">Sign In</a>
+                <a href="register.html" data-i18n="register">Register</a>
+                <a href="dashboard.html" data-i18n="dashboard">Dashboard</a>
             </div>
             <div class="footer-col">
                 <h4>Contact</h4>
-                <p><i data-lucide="map-pin" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> 123 Luxury Avenue</p>
+                <p data-i18n="123_luxury_avenue"><i data-lucide="map-pin" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> 123 Luxury Avenue</p>
                 <p><i data-lucide="phone" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> +1 (555) 123-4567</p>
-                <p><i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> info@luxestay.com</p>
+                <p data-i18n="info_luxestay_com"><i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> info@luxestay.com</p>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2026 LuxeStay. All rights reserved.</p></div>
+        <div class="footer-bottom"><p data-i18n="_2026_luxestay_all_rights_rese">© 2026 LuxeStay. All rights reserved.</p></div>
     </div>
 </footer>
 
@@ -345,5 +343,7 @@
 <script src="js/app.js"></script>
 <script src="js/booking.js"></script>
 
-</body>
-</html>
+
+
+<script src="js/i18n.js"></script>
+</body></html>

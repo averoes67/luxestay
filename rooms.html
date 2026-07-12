@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse our collection of luxury rooms and suites at LuxeStay. From elegant standards to the magnificent Presidential Suite.">
@@ -8,8 +6,8 @@
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -21,29 +19,37 @@
        ═══════════════════════════════════════════════════════════ -->
   <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+      <a href="index.html" class="nav-logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
 
       <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="rooms.html" class="active">Rooms</a>
-        <a href="index.html#amenities">Amenities</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.html" data-i18n="home">Home</a>
+        <a href="rooms.html" class="active" data-i18n="rooms">Rooms</a>
+        <a href="index.html#amenities" data-i18n="amenities">Amenities</a>
+        <a href="index.html#contact" data-i18n="contact">Contact</a>
       </div>
 
       <div class="nav-actions">
+        <div class="lang-switcher">
+          <i data-lucide="globe" style="width:14px;height:14px;color:var(--text-secondary);"></i>
+          <select id="langSwitcher" onchange="changeLanguage(this.value)">
+            <option value="en">EN</option>
+            <option value="ja">JA</option>
+          </select>
+        </div>
+
         <div class="nav-auth-guest">
-          <a href="login.html" class="btn btn-ghost btn-sm">
+          <a href="login.html" class="btn btn-ghost btn-sm" data-i18n="login">
             <i data-lucide="log-in"></i> Login
           </a>
-          <a href="rooms.html" class="btn btn-primary btn-sm">Book Now</a>
+          <a href="rooms.html" class="btn btn-primary btn-sm" data-i18n="book_now">Book Now</a>
         </div>
         <div class="nav-auth-user" style="display:none;">
-          <span class="nav-user">
+          <span class="nav-user" data-i18n="guest">
             <i data-lucide="user"></i>
-            <span class="nav-user-name">Guest</span>
+            <span class="nav-user-name" data-i18n="guest">Guest</span>
           </span>
-          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
-          <button class="btn btn-ghost btn-sm btn-logout">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" data-i18n="dashboard">Dashboard</a>
+          <button class="btn btn-ghost btn-sm btn-logout" data-i18n="logout">
             <i data-lucide="log-out"></i> Logout
           </button>
         </div>
@@ -63,12 +69,12 @@
   <header class="page-header">
     <div class="container">
       <div class="breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="index.html" data-i18n="home">Home</a>
         <span>/</span>
-        <span class="current">Rooms &amp; Suites</span>
+        <span class="current" data-i18n="rooms_suites">Rooms &amp; Suites</span>
       </div>
-      <h1>Our Rooms &amp; <span class="text-gold">Suites</span></h1>
-      <p>Discover your perfect retreat from our curated collection of luxuriously appointed rooms and suites.</p>
+      <h1 data-i18n="our_rooms_suites">Our Rooms &amp; <span class="text-gold" data-i18n="suites">Suites</span></h1>
+      <p data-i18n="discover_your_perfect_retreat">Discover your perfect retreat from our curated collection of luxuriously appointed rooms and suites.</p>
     </div>
   </header>
 
@@ -81,7 +87,7 @@
       <!-- Filter Bar -->
       <div class="filter-bar animate-on-scroll">
         <div class="filter-group">
-          <label for="filterCapacity">Guests</label>
+          <label for="filterCapacity" data-i18n="guests">Guests</label>
           <select id="filterCapacity">
             <option value="">Any Capacity</option>
             <option value="1">1 Guest</option>
@@ -92,7 +98,7 @@
         </div>
 
         <div class="filter-group">
-          <label>Price Range</label>
+          <label data-i18n="price_range">Price Range</label>
           <div class="filter-price-range">
             <input type="number" id="filterPriceMin" placeholder="Min" min="0">
             <span>—</span>
@@ -101,7 +107,7 @@
         </div>
 
         <div class="filter-group">
-          <label for="filterSort">Sort By</label>
+          <label for="filterSort" data-i18n="sort_by">Sort By</label>
           <select id="filterSort">
             <option value="recommended">Recommended</option>
             <option value="price_asc">Price: Low to High</option>
@@ -110,15 +116,15 @@
           </select>
         </div>
 
-        <button class="btn btn-primary" id="applyFilters">
+        <button class="btn btn-primary" id="applyFilters" data-i18n="search">
           <i data-lucide="search"></i> Search
         </button>
       </div>
 
       <!-- Results Info -->
       <div class="rooms-results-info" id="roomsResultsInfo">
-        <span>Showing <strong id="roomsCount">6</strong> rooms</span>
-        <span class="text-muted">All prices per night</span>
+        <span data-i18n="showing_6_rooms">Showing <strong id="roomsCount">6</strong> rooms</span>
+        <span class="text-muted" data-i18n="all_prices_per_night">All prices per night</span>
       </div>
 
       <!-- Rooms Grid -->
@@ -137,7 +143,7 @@
   <div class="modal-overlay" id="availabilityModal">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="modalRoomName">Check Availability</h3>
+        <h3 id="modalRoomName" data-i18n="check_availability">Check Availability</h3>
         <button class="modal-close" aria-label="Close modal">
           <i data-lucide="x"></i>
         </button>
@@ -147,16 +153,16 @@
           <input type="hidden" id="modalRoomTypeId" value="">
           <div class="date-inputs">
             <div class="form-group">
-              <label for="checkInDate">Check-in</label>
-              <input type="date" id="checkInDate" required>
+              <label for="checkInDate" data-i18n="check_in">Check-in</label>
+              <input type="date" id="checkInDate" required="">
             </div>
             <div class="form-group">
-              <label for="checkOutDate">Check-out</label>
-              <input type="date" id="checkOutDate" required>
+              <label for="checkOutDate" data-i18n="check_out">Check-out</label>
+              <input type="date" id="checkOutDate" required="">
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-block mt-lg">
+          <button type="submit" class="btn btn-primary btn-block mt-lg" data-i18n="check_availability">
             <i data-lucide="search"></i> Check Availability
           </button>
         </form>
@@ -165,8 +171,8 @@
         <div class="availability-result" id="availabilityResult">
           <i data-lucide="check-circle" class="result-icon"></i>
           <h4 id="resultTitle">Available!</h4>
-          <p id="resultMessage">Great news — rooms are available for your dates.</p>
-          <a href="login.html" class="btn btn-primary mt-lg" id="resultBookBtn" style="display:none;">
+          <p id="resultMessage" data-i18n="great_news_rooms_are_available">Great news — rooms are available for your dates.</p>
+          <a href="login.html" class="btn btn-primary mt-lg" id="resultBookBtn" style="display:none;" data-i18n="book_now">
             <i data-lucide="calendar-check"></i> Book Now
           </a>
         </div>
@@ -181,8 +187,8 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
-          <p>Where elegance meets comfort. Experience world-class hospitality in the heart of the city.</p>
+          <a href="index.html" class="nav-logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
+          <p data-i18n="where_elegance_meets_comfort_e_279">Where elegance meets comfort. Experience world-class hospitality in the heart of the city.</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
             <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
@@ -193,35 +199,35 @@
         <div class="footer-column">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="rooms.html">Rooms &amp; Suites</a></li>
-            <li><a href="index.html#amenities">Dining</a></li>
-            <li><a href="index.html#amenities">Spa &amp; Wellness</a></li>
-            <li><a href="index.html#contact">Contact Us</a></li>
+            <li><a href="index.html" data-i18n="home">Home</a></li>
+            <li><a href="rooms.html" data-i18n="rooms_suites">Rooms &amp; Suites</a></li>
+            <li><a href="index.html#amenities" data-i18n="dining">Dining</a></li>
+            <li><a href="index.html#amenities" data-i18n="spa_wellness">Spa &amp; Wellness</a></li>
+            <li><a href="index.html#contact" data-i18n="contact_us">Contact Us</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <h4>Contact</h4>
           <ul>
-            <li><a href="#"><i data-lucide="map-pin"></i> 42 Royal Avenue, Manhattan, NY 10001</a></li>
+            <li><a href="#" data-i18n="42_royal_avenue_manhattan_ny_1"><i data-lucide="map-pin"></i> 42 Royal Avenue, Manhattan, NY 10001</a></li>
             <li><a href="tel:+12125550199"><i data-lucide="phone"></i> +1 (212) 555-0199</a></li>
-            <li><a href="mailto:hello@luxestay.com"><i data-lucide="mail"></i> hello@luxestay.com</a></li>
+            <li><a href="mailto:hello@luxestay.com" data-i18n="hello_luxestay_com"><i data-lucide="mail"></i> hello@luxestay.com</a></li>
           </ul>
         </div>
         <div class="footer-column footer-newsletter">
           <h4>Newsletter</h4>
-          <p>Subscribe for exclusive offers and the latest LuxeStay news.</p>
+          <p data-i18n="subscribe_for_exclusive_offers_287">Subscribe for exclusive offers and the latest LuxeStay news.</p>
           <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!','success');">
-            <input type="email" placeholder="Your email address" required>
+            <input type="email" placeholder="Your email address" required="">
             <button type="submit" aria-label="Subscribe"><i data-lucide="send"></i></button>
           </form>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 LuxeStay. All rights reserved.</p>
+        <p data-i18n="_2026_luxestay_all_rights_rese">© 2026 LuxeStay. All rights reserved.</p>
         <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="#" data-i18n="privacy_policy">Privacy Policy</a>
+          <a href="#" data-i18n="terms_of_service">Terms of Service</a>
         </div>
       </div>
     </div>
@@ -415,5 +421,7 @@
     });
   </script>
 
-</body>
-</html>
+
+
+<script src="js/i18n.js"></script>
+</body></html>

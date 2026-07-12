@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sign in or create an account at LuxeStay. Manage your bookings and access exclusive member benefits.">
@@ -8,8 +6,8 @@
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -21,26 +19,34 @@
        ═══════════════════════════════════════════════════════════ -->
   <nav class="navbar nav-scrolled">
     <div class="container">
-      <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+      <a href="index.html" class="nav-logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
 
       <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="rooms.html">Rooms</a>
-        <a href="index.html#amenities">Amenities</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.html" data-i18n="home">Home</a>
+        <a href="rooms.html" data-i18n="rooms">Rooms</a>
+        <a href="index.html#amenities" data-i18n="amenities">Amenities</a>
+        <a href="index.html#contact" data-i18n="contact">Contact</a>
       </div>
 
       <div class="nav-actions">
+        <div class="lang-switcher">
+          <i data-lucide="globe" style="width:14px;height:14px;color:var(--text-secondary);"></i>
+          <select id="langSwitcher" onchange="changeLanguage(this.value)">
+            <option value="en">EN</option>
+            <option value="ja">JA</option>
+          </select>
+        </div>
+
         <div class="nav-auth-guest">
-          <a href="rooms.html" class="btn btn-primary btn-sm">Book Now</a>
+          <a href="rooms.html" class="btn btn-primary btn-sm" data-i18n="book_now">Book Now</a>
         </div>
         <div class="nav-auth-user" style="display:none;">
-          <span class="nav-user">
+          <span class="nav-user" data-i18n="guest">
             <i data-lucide="user"></i>
-            <span class="nav-user-name">Guest</span>
+            <span class="nav-user-name" data-i18n="guest">Guest</span>
           </span>
-          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
-          <button class="btn btn-ghost btn-sm btn-logout">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" data-i18n="dashboard">Dashboard</a>
+          <button class="btn btn-ghost btn-sm btn-logout" data-i18n="logout">
             <i data-lucide="log-out"></i> Logout
           </button>
         </div>
@@ -67,8 +73,8 @@
     <div class="auth-card">
       <!-- Header -->
       <div class="auth-header">
-        <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
-        <p>Welcome back. Sign in to manage your reservations.</p>
+        <a href="index.html" class="nav-logo" data-i18n="luxestay">LUXE<span data-i18n="stay">STAY</span></a>
+        <p data-i18n="welcome_back_sign_in_to_manage">Welcome back. Sign in to manage your reservations.</p>
       </div>
 
       <!-- Tabs -->
@@ -82,20 +88,20 @@
       <div class="auth-forms">
 
         <!-- ── Login Form ─────────────────────────────── -->
-        <form id="loginForm" class="auth-form active" novalidate>
+        <form id="loginForm" class="auth-form active" novalidate="">
           <div class="form-group">
-            <label for="loginEmail">Email Address</label>
+            <label for="loginEmail" data-i18n="email_address_233">Email Address</label>
             <div class="input-icon-wrapper">
-              <input type="email" id="loginEmail" name="email" placeholder="you@example.com" required autocomplete="email">
+              <input type="email" id="loginEmail" name="email" placeholder="you@example.com" required="" autocomplete="email">
               <i data-lucide="mail"></i>
             </div>
             <span class="form-error"></span>
           </div>
 
           <div class="form-group">
-            <label for="loginPassword">Password</label>
+            <label for="loginPassword" data-i18n="password">Password</label>
             <div class="input-icon-wrapper">
-              <input type="password" id="loginPassword" name="password" placeholder="••••••••" required autocomplete="current-password">
+              <input type="password" id="loginPassword" name="password" placeholder="••••••••" required="" autocomplete="current-password">
               <i data-lucide="lock"></i>
               <span class="password-toggle" tabindex="0" role="button" aria-label="Toggle password visibility">
                 <i data-lucide="eye"></i>
@@ -104,50 +110,50 @@
             <span class="form-error"></span>
           </div>
 
-          <a href="#" class="forgot-password">Forgot password?</a>
+          <a href="#" class="forgot-password" data-i18n="forgot_password">Forgot password?</a>
 
-          <button type="submit" class="btn btn-primary btn-block btn-lg">
+          <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="sign_in">
             <i data-lucide="log-in"></i> Sign In
           </button>
 
           <div class="auth-footer">
-            Don't have an account? <a href="#" class="switch-to-register">Create one</a>
+            Don't have an account? <a href="#" class="switch-to-register" data-i18n="create_one">Create one</a>
           </div>
         </form>
 
         <!-- ── Register Form ──────────────────────────── -->
-        <form id="registerForm" class="auth-form" novalidate>
+        <form id="registerForm" class="auth-form" novalidate="">
           <div class="form-group">
-            <label for="registerName">Full Name</label>
+            <label for="registerName" data-i18n="full_name_238">Full Name</label>
             <div class="input-icon-wrapper">
-              <input type="text" id="registerName" name="full_name" placeholder="John Doe" required autocomplete="name">
+              <input type="text" id="registerName" name="full_name" placeholder="John Doe" required="" autocomplete="name">
               <i data-lucide="user"></i>
             </div>
             <span class="form-error"></span>
           </div>
 
           <div class="form-group">
-            <label for="registerEmail">Email Address</label>
+            <label for="registerEmail" data-i18n="email_address_239">Email Address</label>
             <div class="input-icon-wrapper">
-              <input type="email" id="registerEmail" name="email" placeholder="you@example.com" required autocomplete="email">
+              <input type="email" id="registerEmail" name="email" placeholder="you@example.com" required="" autocomplete="email">
               <i data-lucide="mail"></i>
             </div>
             <span class="form-error"></span>
           </div>
 
           <div class="form-group">
-            <label for="registerPhone">Phone Number</label>
+            <label for="registerPhone" data-i18n="phone_number">Phone Number</label>
             <div class="input-icon-wrapper">
-              <input type="tel" id="registerPhone" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel">
+              <input type="tel" id="registerPhone" name="phone" placeholder="+1 (555) 000-0000" required="" autocomplete="tel">
               <i data-lucide="phone"></i>
             </div>
             <span class="form-error"></span>
           </div>
 
           <div class="form-group">
-            <label for="registerPassword">Password</label>
+            <label for="registerPassword" data-i18n="password">Password</label>
             <div class="input-icon-wrapper">
-              <input type="password" id="registerPassword" name="password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password">
+              <input type="password" id="registerPassword" name="password" placeholder="Min. 6 characters" required="" minlength="6" autocomplete="new-password">
               <i data-lucide="lock"></i>
               <span class="password-toggle" tabindex="0" role="button" aria-label="Toggle password visibility">
                 <i data-lucide="eye"></i>
@@ -157,20 +163,20 @@
           </div>
 
           <div class="form-group">
-            <label for="registerConfirmPassword">Confirm Password</label>
+            <label for="registerConfirmPassword" data-i18n="confirm_password">Confirm Password</label>
             <div class="input-icon-wrapper">
-              <input type="password" id="registerConfirmPassword" name="confirm_password" placeholder="Re-enter password" required autocomplete="new-password">
+              <input type="password" id="registerConfirmPassword" name="confirm_password" placeholder="Re-enter password" required="" autocomplete="new-password">
               <i data-lucide="shield-check"></i>
             </div>
             <span class="form-error"></span>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-block btn-lg">
+          <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="create_account">
             <i data-lucide="user-plus"></i> Create Account
           </button>
 
           <div class="auth-footer">
-            Already have an account? <a href="#" class="switch-to-login">Sign in</a>
+            Already have an account? <a href="#" class="switch-to-login" data-i18n="sign_in_244">Sign in</a>
           </div>
         </form>
 
@@ -184,10 +190,10 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom" style="border:none;">
-        <p>&copy; 2026 LuxeStay. All rights reserved.</p>
+        <p data-i18n="_2026_luxestay_all_rights_rese">© 2026 LuxeStay. All rights reserved.</p>
         <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="#" data-i18n="privacy_policy">Privacy Policy</a>
+          <a href="#" data-i18n="terms_of_service">Terms of Service</a>
         </div>
       </div>
     </div>
@@ -209,5 +215,7 @@
     });
   </script>
 
-</body>
-</html>
+
+
+<script src="js/i18n.js"></script>
+</body></html>
