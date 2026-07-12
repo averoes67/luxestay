@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse our collection of luxury rooms and suites at LuxeStay. From elegant standards to the magnificent Presidential Suite.">
+  <title>Rooms &amp; Suites — LuxeStay</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="rooms.html" class="active">Rooms</a>
+        <a href="index.html#amenities">Amenities</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <div class="nav-auth-guest">
+          <a href="login.html" class="btn btn-ghost btn-sm">
+            <i data-lucide="log-in"></i> Login
+          </a>
+          <a href="rooms.html" class="btn btn-primary btn-sm">Book Now</a>
+        </div>
+        <div class="nav-auth-user" style="display:none;">
+          <span class="nav-user">
+            <i data-lucide="user"></i>
+            <span class="nav-user-name">Guest</span>
+          </span>
+          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
+          <button class="btn btn-ghost btn-sm btn-logout">
+            <i data-lucide="log-out"></i> Logout
+          </button>
+        </div>
+      </div>
+
+      <div class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE HEADER
+       ═══════════════════════════════════════════════════════════ -->
+  <header class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span class="current">Rooms &amp; Suites</span>
+      </div>
+      <h1>Our Rooms &amp; <span class="text-gold">Suites</span></h1>
+      <p>Discover your perfect retreat from our curated collection of luxuriously appointed rooms and suites.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════════════════════ -->
+  <main class="section-padding">
+    <div class="container">
+
+      <!-- Filter Bar -->
+      <div class="filter-bar animate-on-scroll">
+        <div class="filter-group">
+          <label for="filterCapacity">Guests</label>
+          <select id="filterCapacity">
+            <option value="">Any Capacity</option>
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4+ Guests</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Price Range</label>
+          <div class="filter-price-range">
+            <input type="number" id="filterPriceMin" placeholder="Min" min="0">
+            <span>—</span>
+            <input type="number" id="filterPriceMax" placeholder="Max" min="0">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filterSort">Sort By</label>
+          <select id="filterSort">
+            <option value="recommended">Recommended</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="size">Room Size</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" id="applyFilters">
+          <i data-lucide="search"></i> Search
+        </button>
+      </div>
+
+      <!-- Results Info -->
+      <div class="rooms-results-info" id="roomsResultsInfo">
+        <span>Showing <strong id="roomsCount">6</strong> rooms</span>
+        <span class="text-muted">All prices per night</span>
+      </div>
+
+      <!-- Rooms Grid -->
+      <div class="rooms-grid" id="roomsGrid">
+        <div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--text-muted);">
+          Loading rooms...
+        </div>
+
+      </div><!-- /.rooms-grid -->
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       AVAILABILITY CHECK MODAL
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="availabilityModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalRoomName">Check Availability</h3>
+        <button class="modal-close" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="availabilityForm">
+          <input type="hidden" id="modalRoomTypeId" value="">
+          <div class="date-inputs">
+            <div class="form-group">
+              <label for="checkInDate">Check-in</label>
+              <input type="date" id="checkInDate" required>
+            </div>
+            <div class="form-group">
+              <label for="checkOutDate">Check-out</label>
+              <input type="date" id="checkOutDate" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block mt-lg">
+            <i data-lucide="search"></i> Check Availability
+          </button>
+        </form>
+
+        <!-- Availability Result -->
+        <div class="availability-result" id="availabilityResult">
+          <i data-lucide="check-circle" class="result-icon"></i>
+          <h4 id="resultTitle">Available!</h4>
+          <p id="resultMessage">Great news — rooms are available for your dates.</p>
+          <a href="login.html" class="btn btn-primary mt-lg" id="resultBookBtn" style="display:none;">
+            <i data-lucide="calendar-check"></i> Book Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+          <p>Where elegance meets comfort. Experience world-class hospitality in the heart of the city.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+            <a href="#" aria-label="Youtube"><i data-lucide="youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms &amp; Suites</a></li>
+            <li><a href="index.html#amenities">Dining</a></li>
+            <li><a href="index.html#amenities">Spa &amp; Wellness</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#"><i data-lucide="map-pin"></i> 42 Royal Avenue, Manhattan, NY 10001</a></li>
+            <li><a href="tel:+12125550199"><i data-lucide="phone"></i> +1 (212) 555-0199</a></li>
+            <li><a href="mailto:hello@luxestay.com"><i data-lucide="mail"></i> hello@luxestay.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-column footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe for exclusive offers and the latest LuxeStay news.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!','success');">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" aria-label="Subscribe"><i data-lucide="send"></i></button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LuxeStay. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // ── Rooms Page Logic ────────────────────────────────────
+
+    // Set minimum dates for date inputs
+    const today = new Date().toISOString().split('T')[0];
+    const checkInEl = document.getElementById('checkInDate');
+    const checkOutEl = document.getElementById('checkOutDate');
+    if (checkInEl) checkInEl.min = today;
+    if (checkOutEl) checkOutEl.min = today;
+
+    checkInEl?.addEventListener('change', function() {
+      if (checkOutEl) {
+        const nextDay = new Date(this.value);
+        nextDay.setDate(nextDay.getDate() + 1);
+        checkOutEl.min = nextDay.toISOString().split('T')[0];
+        if (checkOutEl.value && checkOutEl.value <= this.value) {
+          checkOutEl.value = nextDay.toISOString().split('T')[0];
+        }
+      }
+    });
+
+    // Open availability modal
+    function openAvailabilityModal(roomName, typeId) {
+      document.getElementById('modalRoomName').textContent = roomName;
+      document.getElementById('modalRoomTypeId').value = typeId;
+      // Reset result
+      const result = document.getElementById('availabilityResult');
+      result.classList.remove('show', 'available', 'unavailable');
+      document.getElementById('resultBookBtn').style.display = 'none';
+      openModal('availabilityModal');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // Availability form handler
+    document.getElementById('availabilityForm')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const typeId = document.getElementById('modalRoomTypeId').value;
+      const checkIn = checkInEl.value;
+      const checkOut = checkOutEl.value;
+
+      if (!checkIn || !checkOut) {
+        showToast('Please select both check-in and check-out dates', 'warning');
+        return;
+      }
+
+      const btn = this.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner spinner-sm"></span> Checking...';
+
+      try {
+        const data = await apiRequest(
+          `rooms.php?action=availability&type_id=${typeId}&check_in=${checkIn}&check_out=${checkOut}`
+        );
+
+        const result = document.getElementById('availabilityResult');
+        const title = document.getElementById('resultTitle');
+        const message = document.getElementById('resultMessage');
+        const bookBtn = document.getElementById('resultBookBtn');
+
+        result.classList.add('show');
+
+        if (data.available_count > 0) {
+          result.classList.add('available');
+          result.classList.remove('unavailable');
+          title.textContent = 'Available!';
+          message.textContent = `Great news — ${data.available_count} room(s) available for your selected dates.`;
+          bookBtn.href = `booking.html?check_in=${checkIn}&check_out=${checkOut}`;
+          bookBtn.style.display = 'inline-flex';
+        } else {
+          result.classList.add('unavailable');
+          result.classList.remove('available');
+          title.textContent = 'Not Available';
+          message.textContent = 'Unfortunately, no rooms are available for your selected dates. Please try different dates.';
+          bookBtn.style.display = 'none';
+        }
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      } catch (err) {
+        showToast('Could not check availability. Please try again.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+    });
+
+    // Fetch Rooms from API
+    document.addEventListener('DOMContentLoaded', async () => {
+      await fetchRooms();
+    });
+
+    async function fetchRooms() {
+      const grid = document.getElementById('roomsGrid');
+      try {
+        const res = await fetch('/api/rooms.php?action=list');
+        const data = await res.json();
+        if (data.success && data.data) {
+          const rooms = data.data;
+          
+          grid.innerHTML = rooms.map((room, index) => `
+            <div class="room-card animate-on-scroll delay-${(index % 3) + 1}" style="opacity: 1; transform: translateY(0);" data-price="${room.base_price}" data-capacity="${room.capacity}" data-size="${room.size || 45}" data-index="${index}">
+              <div class="room-card-image">
+                <img src="${room.image_url || 'assets/images/room-standard.jpg'}" alt="${room.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                <div class="overlay"></div>
+                <div class="price-badge">$${room.base_price} <small>/night</small></div>
+              </div>
+              <div class="room-card-content">
+                <h3>${room.name}</h3>
+                <p class="room-desc">${room.description || 'Experience ultimate comfort and luxury.'}</p>
+                <div class="room-meta">
+                  <div class="room-meta-item">
+                    <i data-lucide="users"></i>
+                    <span>${room.capacity} Guests</span>
+                  </div>
+                  <div class="room-meta-item">
+                    <i data-lucide="maximize"></i>
+                    <span>${room.size || '45'} m²</span>
+                  </div>
+                  <div class="room-meta-item">
+                    <i data-lucide="bed-double"></i>
+                    <span>${room.bed_type || 'King Bed'}</span>
+                  </div>
+                </div>
+                <div class="room-amenities">
+                  ${(Array.isArray(room.amenities) ? room.amenities : (room.amenities || 'WiFi,TV,AC').split(',')).slice(0,4).map(a => `<span class="amenity-tag"><i data-lucide="check"></i> ${a.trim()}</span>`).join('')}
+                </div>
+                <button class="btn btn-secondary w-full" onclick="openAvailabilityModal('${room.name.replace(/'/g, "\\'")}', ${room.id})">
+                  <i data-lucide="calendar"></i> Check Availability
+                </button>
+              </div>
+            </div>
+          `).join('');
+          
+          document.getElementById('roomsCount').textContent = rooms.length;
+          lucide.createIcons();
+        }
+      } catch (e) {
+        console.error(e);
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--error);">Failed to load rooms.</div>';
+      }
+    }
+
+    // Client-side filtering
+    document.getElementById('applyFilters')?.addEventListener('click', function() {
+      const capacity = document.getElementById('filterCapacity').value;
+      const priceMin = parseFloat(document.getElementById('filterPriceMin').value) || 0;
+      const priceMax = parseFloat(document.getElementById('filterPriceMax').value) || Infinity;
+      const sort = document.getElementById('filterSort').value;
+
+      const cards = [...document.querySelectorAll('#roomsGrid .room-card')];
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cardPrice = parseFloat(card.dataset.price);
+        const cardCapacity = parseInt(card.dataset.capacity);
+
+        let show = true;
+        if (capacity && cardCapacity < parseInt(capacity)) show = false;
+        if (cardPrice < priceMin || cardPrice > priceMax) show = false;
+
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      // Sort visible cards
+      const grid = document.getElementById('roomsGrid');
+      const sorted = cards.filter(c => c.style.display !== 'none');
+
+      if (sort === 'price_asc') sorted.sort((a, b) => a.dataset.price - b.dataset.price);
+      else if (sort === 'price_desc') sorted.sort((a, b) => b.dataset.price - a.dataset.price);
+      else if (sort === 'size') sorted.sort((a, b) => b.dataset.size - a.dataset.size);
+      else if (sort === 'recommended') sorted.sort((a, b) => a.dataset.index - b.dataset.index);
+
+      sorted.forEach(card => grid.appendChild(card));
+      cards.filter(c => c.style.display === 'none').forEach(card => grid.appendChild(card));
+
+      document.getElementById('roomsCount').textContent = visibleCount;
+      if (visibleCount === 0) {
+        showToast('No rooms match your filters. Try adjusting your criteria.', 'info');
+      }
+    });
+  </script>
+</body>
+</html>

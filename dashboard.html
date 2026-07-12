@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard — LuxeStay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-section{padding:140px 0 80px;min-height:100vh}
+        .welcome-banner{background:linear-gradient(135deg,rgba(212,168,83,.1),rgba(212,168,83,.02));border:1px solid rgba(212,168,83,.15);border-radius:var(--radius-lg);padding:36px 40px;margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+        .welcome-text h1{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+        .welcome-text h1 span{color:var(--gold)}
+        .welcome-text p{color:var(--text-secondary);font-size:.95rem}
+        .welcome-banner .btn{flex-shrink:0}
+        .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+        .stat-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:28px;backdrop-filter:blur(20px);display:flex;align-items:center;gap:20px;transition:var(--transition)}
+        .stat-card:hover{border-color:var(--border-hover);transform:translateY(-2px)}
+        .stat-icon{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .stat-icon.gold{background:rgba(212,168,83,.12);color:var(--gold)}
+        .stat-icon.blue{background:rgba(96,165,250,.12);color:#60a5fa}
+        .stat-icon.green{background:rgba(74,222,128,.12);color:var(--success)}
+        .stat-icon i,.stat-icon svg{width:24px;height:24px}
+        .stat-info .stat-value{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;color:var(--text-primary)}
+        .stat-info .stat-label{font-size:.85rem;color:var(--text-secondary)}
+        .tabs-container{margin-bottom:28px}
+        .tabs-header{display:flex;gap:4px;border-bottom:1px solid var(--border-color);overflow-x:auto}
+        .tab-btn{padding:12px 22px;background:transparent;border:none;color:var(--text-secondary);font-size:.9rem;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:var(--transition);white-space:nowrap;display:flex;align-items:center;gap:8px}
+        .tab-btn:hover{color:var(--text-primary)}
+        .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+        .tab-count{background:rgba(212,168,83,.12);color:var(--gold);font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:10px}
+        .tab-btn.active .tab-count{background:var(--gold);color:var(--bg-primary)}
+        .reservations-list{margin-bottom:40px}
+        .reservation-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:24px 28px;margin-bottom:16px;backdrop-filter:blur(20px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;align-items:center;gap:20px;transition:var(--transition)}
+        .reservation-card:hover{border-color:var(--border-hover);box-shadow:var(--shadow)}
+        .res-room h3{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:4px}
+        .res-room .room-number{font-size:.8rem;color:var(--text-muted)}
+        .res-dates{font-size:.85rem}
+        .res-dates .date-label{color:var(--text-muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+        .res-dates .date-value{color:var(--text-primary);font-weight:500}
+        .res-guests{font-size:.9rem;color:var(--text-secondary);display:flex;align-items:center;gap:6px}
+        .res-guests i,.res-guests svg{width:16px;height:16px;color:var(--gold)}
+        .res-price{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:var(--gold)}
+        .res-actions{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+        .status-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:.75rem;font-weight:600;text-transform:capitalize}
+        .status-badge::before{content:'';width:7px;height:7px;border-radius:50%}
+        .status-badge.pending{background:rgba(251,191,36,.1);color:#fbbf24}
+        .status-badge.pending::before{background:#fbbf24}
+        .status-badge.confirmed{background:rgba(96,165,250,.1);color:#60a5fa}
+        .status-badge.confirmed::before{background:#60a5fa}
+        .status-badge.checked_in,.status-badge.checked-in{background:rgba(74,222,128,.1);color:#4ade80}
+        .status-badge.checked_in::before,.status-badge.checked-in::before{background:#4ade80}
+        .status-badge.checked_out,.status-badge.checked-out{background:rgba(148,163,184,.1);color:#94a3b8}
+        .status-badge.checked_out::before,.status-badge.checked-out::before{background:#94a3b8}
+        .status-badge.cancelled{background:rgba(248,113,113,.1);color:#f87171}
+        .status-badge.cancelled::before{background:#f87171}
+        .cancel-btn{background:transparent;border:1px solid rgba(248,113,113,.3);color:var(--error);padding:6px 14px;border-radius:var(--radius-sm);font-size:.8rem;cursor:pointer;transition:var(--transition)}
+        .cancel-btn:hover{background:rgba(248,113,113,.1);border-color:var(--error)}
+        .empty-state{text-align:center;padding:80px 20px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);backdrop-filter:blur(20px)}
+        .empty-state i,.empty-state svg{width:56px;height:56px;color:var(--text-muted);margin-bottom:16px}
+        .empty-state h3{font-family:'Outfit',sans-serif;font-size:1.3rem;color:var(--text-primary);margin-bottom:8px}
+        .empty-state p{color:var(--text-secondary);margin-bottom:24px}
+        .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+        .quick-action-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:32px;text-align:center;backdrop-filter:blur(20px);transition:var(--transition);text-decoration:none;display:block}
+        .quick-action-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 8px 40px rgba(212,168,83,.15)}
+        .quick-action-card i,.quick-action-card svg{width:36px;height:36px;color:var(--gold);margin-bottom:14px}
+        .quick-action-card h3{font-family:'Outfit',sans-serif;font-size:1.1rem;color:var(--text-primary);margin-bottom:6px}
+        .quick-action-card p{color:var(--text-secondary);font-size:.85rem}
+        .dash-loading{display:flex;align-items:center;justify-content:center;padding:80px}
+        .dash-loading .spinner{width:40px;height:40px;border:3px solid var(--border-color);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .cancel-modal-body{text-align:center;padding:16px 0}
+        .cancel-modal-body .warning-icon{width:64px;height:64px;border-radius:50%;background:rgba(248,113,113,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+        .cancel-modal-body .warning-icon i,.cancel-modal-body .warning-icon svg{width:28px;height:28px;color:var(--error)}
+        .cancel-modal-body h3{font-family:'Outfit',sans-serif;font-size:1.3rem;color:var(--text-primary);margin-bottom:8px}
+        .cancel-modal-body p{color:var(--text-secondary);font-size:.9rem;margin-bottom:12px}
+        .cancel-modal-body .cancel-details{background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.1);border-radius:var(--radius-md);padding:16px;margin:16px 0;text-align:left;font-size:.85rem}
+        .cancel-modal-body .cancel-details .detail-row{display:flex;justify-content:space-between;padding:6px 0}
+        .cancel-modal-body .cancel-details .detail-label{color:var(--text-muted)}
+        .cancel-modal-body .cancel-details .detail-value{color:var(--text-primary);font-weight:500}
+        .modal-footer .btn-danger{background:var(--error);color:#fff;border:none;padding:10px 24px;border-radius:var(--radius-md);cursor:pointer;font-weight:600;transition:var(--transition)}
+        .modal-footer .btn-danger:hover{background:#ef4444}
+        @media(max-width:992px){.reservation-card{grid-template-columns:1fr 1fr}.res-actions{align-items:flex-start}}
+        @media(max-width:768px){.welcome-banner{padding:24px}.welcome-text h1{font-size:1.5rem}.stats-row{grid-template-columns:1fr}.reservation-card{grid-template-columns:1fr;gap:12px;padding:20px}.res-actions{flex-direction:row;align-items:center}.quick-actions{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<nav class="navbar nav-scrolled">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="rooms.html">Rooms</a>
+            <a href="booking.html">Book Now</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn btn-ghost">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Register</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<section class="dashboard-section">
+    <div class="container">
+        <div class="welcome-banner" id="welcomeBanner">
+            <div class="welcome-text">
+                <h1>Welcome back, <span id="userName">Guest</span>!</h1>
+                <p>Manage your reservations and plan your next luxury getaway.</p>
+            </div>
+            <a href="booking.html" class="btn btn-primary"><i data-lucide="plus" style="width:16px;height:16px;"></i> Book a New Stay</a>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i data-lucide="calendar-check"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalStays">0</div>
+                    <div class="stat-label">Total Stays</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i data-lucide="calendar-clock"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="upcomingStays">0</div>
+                    <div class="stat-label">Upcoming Stays</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon gold"><i data-lucide="wallet"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalSpent">$0</div>
+                    <div class="stat-label">Total Spent</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="all">All <span class="tab-count" id="countAll">0</span></button>
+                <button class="tab-btn" data-tab="upcoming">Upcoming <span class="tab-count" id="countUpcoming">0</span></button>
+                <button class="tab-btn" data-tab="completed">Completed <span class="tab-count" id="countCompleted">0</span></button>
+                <button class="tab-btn" data-tab="cancelled">Cancelled <span class="tab-count" id="countCancelled">0</span></button>
+            </div>
+        </div>
+
+        <div class="reservations-list" id="reservationsList">
+            <div class="dash-loading" id="dashLoading"><div class="spinner"></div></div>
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <i data-lucide="calendar-x"></i>
+            <h3>No Reservations Found</h3>
+            <p>You haven't made any bookings yet. Start planning your luxury stay!</p>
+            <a href="rooms.html" class="btn btn-primary">Browse Rooms</a>
+        </div>
+
+        <div class="quick-actions">
+            <a href="booking.html" class="quick-action-card">
+                <i data-lucide="calendar-plus"></i>
+                <h3>Book a New Room</h3>
+                <p>Reserve your next luxury experience</p>
+            </a>
+            <a href="rooms.html" class="quick-action-card">
+                <i data-lucide="bed-double"></i>
+                <h3>Browse Rooms</h3>
+                <p>Explore our collection of premium rooms</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="modal-overlay" id="cancelModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Cancel Reservation</h3>
+            <button class="modal-close" onclick="closeModal('cancelModal')"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="cancel-modal-body">
+                <div class="warning-icon"><i data-lucide="alert-triangle"></i></div>
+                <h3>Are you sure?</h3>
+                <p>This action cannot be undone. Your reservation will be cancelled.</p>
+                <div class="cancel-details" id="cancelDetails"></div>
+            </div>
+        </div>
+        <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;">
+            <button class="btn btn-ghost" onclick="closeModal('cancelModal')">Keep Booking</button>
+            <button class="btn-danger" id="confirmCancelBtn">Cancel Reservation</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal-overlay" id="reviewModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Leave a Review</h3>
+            <button class="modal-close" onclick="closeModal('reviewModal')"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="reviewRoomTypeId">
+            <div style="margin-bottom:16px;">
+                <label>Rating</label>
+                <div class="review-stars-input" id="reviewStarsInput" style="display:flex;gap:8px;font-size:1.5rem;color:var(--text-muted);cursor:pointer;margin-top:8px;">
+                    <i data-lucide="star" data-val="1"></i>
+                    <i data-lucide="star" data-val="2"></i>
+                    <i data-lucide="star" data-val="3"></i>
+                    <i data-lucide="star" data-val="4"></i>
+                    <i data-lucide="star" data-val="5"></i>
+                </div>
+                <input type="hidden" id="reviewRating" value="0">
+            </div>
+            <div class="form-group">
+                <label for="reviewComment">Your Experience</label>
+                <textarea id="reviewComment" rows="4" placeholder="Tell us about your stay..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;">
+            <button class="btn btn-ghost" onclick="closeModal('reviewModal')">Cancel</button>
+            <button class="btn btn-primary" id="submitReviewBtn">Submit Review</button>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+                <p class="footer-desc">Experience unparalleled luxury and world-class hospitality at every stay.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="rooms.html">Our Rooms</a>
+                <a href="booking.html">Book Now</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Account</h4>
+                <a href="login.html">Sign In</a>
+                <a href="register.html">Register</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i data-lucide="map-pin" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> 123 Luxury Avenue</p>
+                <p><i data-lucide="phone" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> +1 (555) 123-4567</p>
+                <p><i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> info@luxestay.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 LuxeStay. All rights reserved.</p></div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

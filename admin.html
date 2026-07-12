@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — LuxeStay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <!-- ── Sidebar Overlay (mobile) ── -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ── Sidebar ── -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+            <span class="admin-badge">Admin</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a class="sidebar-nav-item active" data-panel="overview">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </a>
+            <a class="sidebar-nav-item" data-panel="rooms">
+                <i data-lucide="bed-double"></i> Rooms
+            </a>
+            <a class="sidebar-nav-item" data-panel="reservations">
+                <i data-lucide="calendar-check"></i> Reservations
+            </a>
+            <a class="sidebar-nav-item" data-panel="guests">
+                <i data-lucide="users"></i> Guests
+            </a>
+            <a class="sidebar-nav-item" data-panel="revenue">
+                <i data-lucide="trending-up"></i> Revenue
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="index.html"><i data-lucide="arrow-left"></i> Back to Site</a>
+        </div>
+    </aside>
+
+    <!-- ── Main ── -->
+    <div class="admin-main">
+
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div style="display:flex;align-items:center;gap:16px;">
+                <button class="sidebar-toggle" id="sidebarToggle"><i data-lucide="menu"></i></button>
+                <h2 id="panelTitle">Overview</h2>
+            </div>
+            <div class="admin-topbar-right">
+                <div class="admin-user">
+                    <div class="admin-user-avatar" id="adminAvatar">A</div>
+                    <span id="adminName">Admin</span>
+                </div>
+                <button class="admin-logout-btn" id="adminLogout">
+                    <i data-lucide="log-out"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <main class="admin-content">
+
+            <!-- ═══ OVERVIEW PANEL ═══ -->
+            <div class="tab-panel active" id="panel-overview">
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card blue">
+                        <div class="kpi-icon blue"><i data-lucide="bed-double"></i></div>
+                        <div class="kpi-info">
+                            <div class="kpi-value" id="kpiTotalRooms">—</div>
+                            <div class="kpi-label">Total Rooms</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card green">
+                        <div class="kpi-icon green"><i data-lucide="percent"></i></div>
+                        <div class="kpi-info">
+                            <div class="kpi-value" id="kpiOccupancy">—</div>
+                            <div class="kpi-label">Occupancy Rate</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card gold">
+                        <div class="kpi-icon gold"><i data-lucide="dollar-sign"></i></div>
+                        <div class="kpi-info">
+                            <div class="kpi-value" id="kpiRevenue">—</div>
+                            <div class="kpi-label">Today's Revenue</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card purple">
+                        <div class="kpi-icon purple"><i data-lucide="users"></i></div>
+                        <div class="kpi-info">
+                            <div class="kpi-value" id="kpiGuests">—</div>
+                            <div class="kpi-label">Active Guests</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-row">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Revenue — Last 30 Days</div>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Revenue by Room Type</div>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="roomTypeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Reservations -->
+                <div class="admin-table-wrap">
+                    <div class="admin-table-header">
+                        <div class="admin-table-title">Recent Reservations</div>
+                    </div>
+                    <div class="table-overflow">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Guest</th>
+                                    <th>Room</th>
+                                    <th>Check-in</th>
+                                    <th>Check-out</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentReservationsBody">
+                                <tr><td colspan="7"><div class="admin-loading"><div class="admin-spinner"></div></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ═══ ROOMS PANEL ═══ -->
+            <div class="tab-panel" id="panel-rooms">
+
+                <div class="summary-cards" id="roomSummaryCards">
+                    <div class="summary-card">
+                        <div class="summary-card-icon green"><i data-lucide="check-circle"></i></div>
+                        <div class="summary-card-info">
+                            <div class="count" id="roomsAvailable">—</div>
+                            <div class="label">Available</div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon orange"><i data-lucide="user-check"></i></div>
+                        <div class="summary-card-info">
+                            <div class="count" id="roomsOccupied">—</div>
+                            <div class="label">Occupied</div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon red"><i data-lucide="wrench"></i></div>
+                        <div class="summary-card-info">
+                            <div class="count" id="roomsMaintenance">—</div>
+                            <div class="label">Maintenance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <div class="admin-table-header">
+                        <div class="admin-table-title">All Rooms</div>
+                    </div>
+                    <div class="table-overflow">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Room Number</th>
+                                    <th>Floor</th>
+                                    <th>Type</th>
+                                    <th>Price/Night</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="roomsTableBody">
+                                <tr><td colspan="6"><div class="admin-loading"><div class="admin-spinner"></div></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ═══ RESERVATIONS PANEL ═══ -->
+            <div class="tab-panel" id="panel-reservations">
+
+                <div class="filter-bar">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="filterStatus">
+                            <option value="">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="checked_in">Checked In</option>
+                            <option value="checked_out">Checked Out</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-search">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="filterSearch" placeholder="Search reservations…">
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <div class="table-overflow">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Guest</th>
+                                    <th>Room</th>
+                                    <th>Check-in</th>
+                                    <th>Check-out</th>
+                                    <th>Guests</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationsTableBody">
+                                <tr><td colspan="9"><div class="admin-loading"><div class="admin-spinner"></div></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="pagination" id="reservationsPagination"></div>
+
+            </div>
+
+            <!-- ═══ GUESTS PANEL ═══ -->
+            <div class="tab-panel" id="panel-guests">
+
+                <div class="filter-bar">
+                    <div class="filter-search" style="flex:1;">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="guestSearch" placeholder="Search guests by name or email…">
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <div class="table-overflow">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Total Bookings</th>
+                                    <th>Total Spent</th>
+                                </tr>
+                            </thead>
+                            <tbody id="guestsTableBody">
+                                <tr><td colspan="5"><div class="admin-loading"><div class="admin-spinner"></div></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="pagination" id="guestsPagination"></div>
+
+            </div>
+
+            <!-- ═══ REVENUE PANEL ═══ -->
+            <div class="tab-panel" id="panel-revenue">
+
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+                    <h3 class="section-title" style="margin-bottom:0;">Revenue Analytics</h3>
+                    <div class="date-range-btns">
+                        <button class="range-btn" data-days="7">7 Days</button>
+                        <button class="range-btn active" data-days="30">30 Days</button>
+                        <button class="range-btn" data-days="90">90 Days</button>
+                    </div>
+                </div>
+
+                <div class="revenue-cards" id="revenueCards">
+                    <div class="revenue-card">
+                        <div class="rev-label">Total Revenue</div>
+                        <div class="rev-value gold" id="revTotal">—</div>
+                    </div>
+                    <div class="revenue-card">
+                        <div class="rev-label">Average Daily</div>
+                        <div class="rev-value" id="revAvg">—</div>
+                    </div>
+                    <div class="revenue-card">
+                        <div class="rev-label">Highest Day</div>
+                        <div class="rev-value" id="revHighest">—</div>
+                    </div>
+                    <div class="revenue-card">
+                        <div class="rev-label">Total Bookings</div>
+                        <div class="rev-value" id="revBookings">—</div>
+                    </div>
+                </div>
+
+                <div class="charts-row" style="grid-template-columns:1fr;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Revenue Over Time</div>
+                        </div>
+                        <div class="chart-canvas-wrap tall">
+                            <canvas id="revenueBigChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-row" style="margin-top:24px;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Revenue by Room Type</div>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="revenueByTypeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Daily Revenue Breakdown</div>
+                        </div>
+                        <div class="table-overflow" style="max-height:280px;overflow-y:auto;">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="revenueTableBody">
+                                    <tr><td colspan="2"><div class="admin-loading"><div class="admin-spinner"></div></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="admin-footer">
+            &copy; 2026 LuxeStay Admin Panel. All rights reserved.
+        </footer>
+    </div>
+
+</div>
+
+<!-- ── Edit Price Modal ── -->
+<div class="modal-overlay" id="editPriceModal">
+    <div class="modal admin-modal">
+        <div class="modal-header">
+            <h3>Edit Room Price</h3>
+            <button class="modal-close" onclick="closeModal('editPriceModal')"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Room Type</label>
+                <p style="color:var(--text-primary);font-weight:600;" id="editRoomTypeName">—</p>
+            </div>
+            <div class="form-group">
+                <label>Current Price</label>
+                <div class="current-price" id="editCurrentPrice">$0</div>
+            </div>
+            <div class="form-group">
+                <label for="newPriceInput">New Price per Night ($)</label>
+                <input type="number" id="newPriceInput" min="1" step="0.01" placeholder="Enter new price">
+            </div>
+        </div>
+        <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;">
+            <button class="btn btn-ghost" onclick="closeModal('editPriceModal')">Cancel</button>
+            <button class="btn btn-primary" id="savePriceBtn">Save Price</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

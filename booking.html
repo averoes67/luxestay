@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay — LuxeStay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .booking-hero{padding:140px 0 40px;text-align:center}
+        .booking-hero h1{font-family:'Outfit',sans-serif;font-size:2.8rem;font-weight:700;color:var(--text-primary);margin-bottom:.5rem}
+        .booking-hero h1 span{color:var(--gold)}
+        .booking-hero p{color:var(--text-secondary);font-size:1.1rem}
+        .step-indicator{display:flex;justify-content:center;align-items:center;gap:0;margin:40px auto 50px;max-width:700px}
+        .step-item{display:flex;flex-direction:column;align-items:center;position:relative;flex:1;z-index:1}
+        .step-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg-secondary);border:2px solid var(--border-color);color:var(--text-muted);font-size:1.1rem;transition:var(--transition);position:relative;z-index:2}
+        .step-circle i{width:20px;height:20px}
+        .step-label{margin-top:10px;font-size:.8rem;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;transition:var(--transition);white-space:nowrap}
+        .step-item.active .step-circle{background:var(--gold-gradient);border-color:var(--gold);color:var(--bg-primary);box-shadow:0 0 30px rgba(212,168,83,.35)}
+        .step-item.active .step-label{color:var(--gold)}
+        .step-item.completed .step-circle{background:var(--success);border-color:var(--success);color:var(--bg-primary)}
+        .step-item.completed .step-label{color:var(--success)}
+        .step-line{flex:1;height:2px;background:var(--border-color);margin:0 -10px;margin-bottom:30px;transition:var(--transition)}
+        .step-line.completed{background:var(--success)}
+        .booking-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:48px;max-width:900px;margin:0 auto 80px;backdrop-filter:blur(20px);box-shadow:var(--shadow)}
+        .step-panel{display:none;animation:fadeSlide .5s ease}
+        .step-panel.active{display:block}
+        @keyframes fadeSlide{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        .step-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+        .step-subtitle{color:var(--text-secondary);margin-bottom:32px;font-size:.95rem}
+        .date-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+        .guest-select{margin-bottom:32px;max-width:300px}
+        .duration-display{background:rgba(212,168,83,.08);border:1px solid rgba(212,168,83,.15);border-radius:var(--radius-md);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+        .duration-display .nights{font-size:1.3rem;font-weight:600;color:var(--gold)}
+        .duration-display .nights-label{font-size:.85rem;color:var(--text-secondary)}
+        .rooms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-bottom:32px}
+        .room-card{background:var(--bg-secondary);border:2px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:var(--transition)}
+        .room-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 8px 32px rgba(212,168,83,.12)}
+        .room-card.selected{border-color:var(--gold);box-shadow:0 0 30px rgba(212,168,83,.25)}
+        .room-card-image{height:180px;background:linear-gradient(135deg,rgba(212,168,83,.15),rgba(10,14,26,.6)),linear-gradient(45deg,var(--bg-secondary),var(--bg-primary));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+        .room-card-image img{width:100%;height:100%;object-fit:cover}
+        .room-card-image .room-placeholder-icon{color:var(--gold);opacity:.3}
+        .room-card-image .room-price-tag{position:absolute;bottom:12px;right:12px;background:rgba(10,14,26,.85);padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-color)}
+        .room-price-tag .price-amount{font-weight:700;color:var(--gold);font-size:1.1rem}
+        .room-price-tag .price-unit{color:var(--text-muted);font-size:.75rem}
+        .room-card-body{padding:20px}
+        .room-card-body h3{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:600;color:var(--text-primary);margin-bottom:10px}
+        .room-meta{display:flex;gap:16px;margin-bottom:12px}
+        .room-meta span{display:flex;align-items:center;gap:5px;font-size:.8rem;color:var(--text-secondary)}
+        .room-meta span i{width:14px;height:14px;color:var(--gold)}
+        .room-amenities{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+        .room-amenities .amenity-tag{background:rgba(212,168,83,.08);color:var(--text-secondary);font-size:.7rem;padding:4px 10px;border-radius:20px;border:1px solid rgba(212,168,83,.1)}
+        .room-total-price{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border-color)}
+        .room-total-price .label{color:var(--text-secondary);font-size:.85rem}
+        .room-total-price .total{font-weight:700;color:var(--gold);font-size:1.2rem}
+        .room-card .select-btn{display:block;width:100%;padding:10px;background:transparent;border:1px solid var(--border-color);color:var(--text-secondary);border-radius:var(--radius-sm);cursor:pointer;font-weight:500;transition:var(--transition);margin-top:12px}
+        .room-card .select-btn:hover,.room-card.selected .select-btn{background:var(--gold-gradient);border-color:var(--gold);color:var(--bg-primary)}
+        .guest-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:36px}
+        .booking-summary-panel{background:rgba(212,168,83,.05);border:1px solid rgba(212,168,83,.12);border-radius:var(--radius-md);padding:28px}
+        .summary-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:1.1rem;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+        .summary-title i{width:18px;height:18px}
+        .summary-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(212,168,83,.08);font-size:.9rem}
+        .summary-row .label{color:var(--text-secondary)}
+        .summary-row .value{color:var(--text-primary);font-weight:500}
+        .summary-total{display:flex;justify-content:space-between;padding-top:16px;margin-top:8px;font-size:1.15rem;font-weight:700}
+        .summary-total .label{color:var(--text-primary)}
+        .summary-total .value{color:var(--gold)}
+        .confirmation-panel{text-align:center;padding:32px 0}
+        .confirm-checkmark{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,rgba(74,222,128,.15),rgba(74,222,128,.05));border:3px solid var(--success);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:popIn .6s cubic-bezier(.175,.885,.32,1.275)}
+        .confirm-checkmark i{width:40px;height:40px;color:var(--success)}
+        @keyframes popIn{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+        .confirmation-panel h2{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+        .booking-ref{display:inline-block;background:rgba(212,168,83,.1);border:1px solid rgba(212,168,83,.2);padding:8px 24px;border-radius:var(--radius-sm);color:var(--gold);font-weight:600;font-size:1.1rem;letter-spacing:1px;margin:16px 0 32px}
+        .confirm-details{max-width:500px;margin:0 auto 36px;text-align:left}
+        .confirm-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+        .step-actions{display:flex;justify-content:space-between;margin-top:36px;gap:16px}
+        .step-actions .btn{min-width:160px}
+        .rooms-loading,.rooms-empty{text-align:center;padding:60px 20px}
+        .rooms-loading .spinner{width:40px;height:40px;border:3px solid var(--border-color);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .rooms-empty i{width:48px;height:48px;color:var(--text-muted);margin-bottom:16px}
+        .rooms-empty p{color:var(--text-secondary)}
+        .no-availability{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:var(--radius-md);padding:20px;text-align:center;color:var(--error);margin-bottom:24px}
+        @media(max-width:768px){.booking-hero h1{font-size:2rem}.booking-card{padding:28px 20px}.date-grid{grid-template-columns:1fr}.guest-layout{grid-template-columns:1fr}.rooms-grid{grid-template-columns:1fr}.step-indicator{gap:0;padding:0 10px}.step-label{font-size:.65rem}.step-circle{width:42px;height:42px}.confirm-actions{flex-direction:column;align-items:center}.step-actions{flex-direction:column}.step-actions .btn{width:100%}}
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="rooms.html">Rooms</a>
+            <a href="booking.html" class="active">Book Now</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn btn-ghost">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Register</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i data-lucide="menu"></i></button>
+    </div>
+</nav>
+
+<section class="booking-hero">
+    <div class="container">
+        <h1>Reserve Your <span>Luxury</span> Experience</h1>
+        <p>Complete your booking in just a few simple steps</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="step-indicator" id="stepIndicator">
+        <div class="step-item active" data-step="1">
+            <div class="step-circle"><i data-lucide="calendar"></i></div>
+            <span class="step-label">Select Dates</span>
+        </div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-item" data-step="2">
+            <div class="step-circle"><i data-lucide="bed-double"></i></div>
+            <span class="step-label">Choose Room</span>
+        </div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-item" data-step="3">
+            <div class="step-circle"><i data-lucide="user"></i></div>
+            <span class="step-label">Guest Details</span>
+        </div>
+        <div class="step-line" id="line3"></div>
+        <div class="step-item" data-step="4">
+            <div class="step-circle"><i data-lucide="credit-card"></i></div>
+            <span class="step-label">Payment</span>
+        </div>
+        <div class="step-line" id="line4"></div>
+        <div class="step-item" data-step="5">
+            <div class="step-circle"><i data-lucide="check"></i></div>
+            <span class="step-label">Confirmation</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="booking-card">
+        <!-- Step 1 -->
+        <div class="step-panel active" id="step1">
+            <h2 class="step-title">Select Your Dates</h2>
+            <p class="step-subtitle">Choose your check-in and check-out dates to see available rooms.</p>
+            <div class="date-grid">
+                <div class="form-group">
+                    <label for="checkIn"><i data-lucide="log-in" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Check-in Date</label>
+                    <input type="date" id="checkIn" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkOut"><i data-lucide="log-out" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Check-out Date</label>
+                    <input type="date" id="checkOut" required>
+                </div>
+            </div>
+            <div class="form-group guest-select">
+                <label for="guestsCount"><i data-lucide="users" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> Number of Guests</label>
+                <select id="guestsCount">
+                    <option value="1">1 Guest</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5 Guests</option>
+                    <option value="6">6 Guests</option>
+                </select>
+            </div>
+            <div class="duration-display" id="durationDisplay" style="display:none;">
+                <div>
+                    <div class="nights" id="nightsCount">0 Nights</div>
+                    <div class="nights-label">Duration of stay</div>
+                </div>
+                <div style="text-align:right;">
+                    <div class="nights" id="estPrice">—</div>
+                    <div class="nights-label">Starting from</div>
+                </div>
+            </div>
+            <div class="step-actions" style="justify-content:flex-end;">
+                <button class="btn btn-primary" id="searchRoomsBtn"><i data-lucide="search" style="width:16px;height:16px;"></i> Search Available Rooms</button>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-panel" id="step2">
+            <h2 class="step-title">Choose Your Room</h2>
+            <p class="step-subtitle">Select the perfect room for your stay.</p>
+            <div id="roomsContainer">
+                <div class="rooms-loading" id="roomsLoading">
+                    <div class="spinner"></div>
+                    <p style="color:var(--text-secondary);">Searching available rooms…</p>
+                </div>
+                <div class="rooms-grid" id="roomsGrid"></div>
+                <div class="rooms-empty" id="roomsEmpty" style="display:none;">
+                    <i data-lucide="bed-double"></i>
+                    <p>No rooms available for the selected dates. Please try different dates.</p>
+                </div>
+            </div>
+            <div class="step-actions">
+                <button class="btn btn-ghost" id="backToStep1"><i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back</button>
+                <button class="btn btn-primary" id="toStep3Btn" disabled>Continue <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-panel" id="step3">
+            <h2 class="step-title">Guest Details</h2>
+            <p class="step-subtitle">Tell us a bit about yourself and any special requests.</p>
+            <div class="guest-layout">
+                <div class="guest-form">
+                    <div id="loginPrompt" style="display:none;margin-bottom:24px;">
+                        <div style="background:rgba(212,168,83,.08);border:1px solid rgba(212,168,83,.15);border-radius:var(--radius-md);padding:16px;display:flex;align-items:center;gap:12px;">
+                            <i data-lucide="info" style="width:20px;height:20px;color:var(--gold);flex-shrink:0;"></i>
+                            <div>
+                                <p style="color:var(--text-primary);font-size:.9rem;margin-bottom:4px;">An account will be created for you automatically.</p>
+                                <p style="color:var(--text-secondary);font-size:.85rem;">Already have an account? <a href="login.html" style="color:var(--gold);">Sign in here →</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="guestName">Full Name *</label>
+                        <input type="text" id="guestName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="date-grid">
+                        <div class="form-group">
+                            <label for="guestEmail">Email Address *</label>
+                            <input type="email" id="guestEmail" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guestPhone">Phone Number</label>
+                            <input type="tel" id="guestPhone" placeholder="+1 (555) 000-0000">
+                        </div>
+                    </div>
+                    <div class="form-group" id="guestPasswordGroup">
+                        <label for="guestPassword">Create Password (for your account) *</label>
+                        <input type="password" id="guestPassword" placeholder="Minimum 6 characters" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests</label>
+                        <textarea id="specialRequests" rows="4" placeholder="Any special requests or preferences…" style="min-height:100px;"></textarea>
+                    </div>
+                </div>
+                <div class="booking-summary-panel" id="bookingSummary">
+                    <div class="summary-title"><i data-lucide="receipt"></i> Booking Summary</div>
+                    <div id="summaryContent"></div>
+                </div>
+            </div>
+            <div class="step-actions">
+                <button class="btn btn-ghost" id="backToStep2"><i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back</button>
+                <button class="btn btn-primary" id="confirmBookingBtn"><i data-lucide="shield-check" style="width:16px;height:16px;"></i> Confirm Booking</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Payment -->
+        <div class="step-panel" id="step4">
+            <h2 class="step-title">Payment Details</h2>
+            <p class="step-subtitle">Complete your reservation securely.</p>
+            <div class="payment-layout" style="display:flex; gap:32px; align-items:flex-start;">
+                <div class="payment-form" style="flex:2;">
+                    <div class="payment-methods" style="display:flex; gap:16px; margin-bottom:24px;">
+                        <label class="payment-method-card" style="flex:1; border:2px solid var(--gold); border-radius:var(--radius-md); padding:16px; text-align:center; cursor:pointer; background:rgba(212,168,83,.05);">
+                            <input type="radio" name="payment_method" value="cc" checked style="display:none;">
+                            <i data-lucide="credit-card" style="width:24px;height:24px;color:var(--gold);margin-bottom:8px;"></i>
+                            <div style="font-weight:600; color:var(--text-primary);">Credit Card</div>
+                        </label>
+                        <label class="payment-method-card" style="flex:1; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; cursor:pointer; opacity:0.6;">
+                            <input type="radio" name="payment_method" value="transfer" style="display:none;" disabled>
+                            <i data-lucide="building" style="width:24px;height:24px;margin-bottom:8px;"></i>
+                            <div style="font-weight:600; color:var(--text-primary);">Bank Transfer</div>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" placeholder="Name on card" id="ccName">
+                    </div>
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="0000 0000 0000 0000" id="ccNumber">
+                    </div>
+                    <div class="date-grid">
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" id="ccExpiry">
+                        </div>
+                        <div class="form-group">
+                            <label>CVC</label>
+                            <input type="text" placeholder="123" id="ccCVC">
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-summary" style="flex:1; background:var(--bg-card); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius-md);">
+                    <div style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:600; margin-bottom:16px;">Amount Due</div>
+                    <div id="paymentAmountDue" style="font-size:2rem; color:var(--gold); font-weight:700; font-family:'Outfit',sans-serif; margin-bottom:24px;">$0</div>
+                    <button class="btn btn-primary w-full" id="processPaymentBtn">
+                        <i data-lucide="lock" style="width:16px;height:16px;"></i> Pay Now
+                    </button>
+                    <div style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">
+                        <i data-lucide="shield-check" style="width:12px;height:12px;display:inline-block;vertical-align:middle;"></i> Secure 256-bit encryption
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Confirmation -->
+        <div class="step-panel" id="step5">
+            <div class="confirmation-panel">
+                <div class="confirm-checkmark"><i data-lucide="check"></i></div>
+                <h2>Booking Confirmed!</h2>
+                <p style="color:var(--text-secondary);margin-bottom:8px;">Your luxury experience has been reserved and paid.</p>
+                <div class="booking-ref" id="bookingRef">LXS-000000</div>
+                <div class="confirm-details" id="confirmDetails"></div>
+                <div class="confirm-actions">
+                    <a href="dashboard.html" class="btn btn-primary"><i data-lucide="layout-dashboard" style="width:16px;height:16px;"></i> Go to Dashboard</a>
+                    <a href="booking.html" class="btn btn-secondary"><i data-lucide="plus" style="width:16px;height:16px;"></i> Book Another Room</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo">LUXE<span>STAY</span></a>
+                <p class="footer-desc">Experience unparalleled luxury and world-class hospitality at every stay.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="rooms.html">Our Rooms</a>
+                <a href="booking.html">Book Now</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Account</h4>
+                <a href="login.html">Sign In</a>
+                <a href="register.html">Register</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i data-lucide="map-pin" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> 123 Luxury Avenue</p>
+                <p><i data-lucide="phone" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> +1 (555) 123-4567</p>
+                <p><i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i> info@luxestay.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 LuxeStay. All rights reserved.</p></div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>

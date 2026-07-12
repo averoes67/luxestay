@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LuxeStay — Experience true luxury at our world-class hotel. Elegant rooms, fine dining, spa, and unforgettable hospitality await you.">
+  <meta name="keywords" content="luxury hotel, boutique hotel, suites, fine dining, spa, resort">
+  <title>LuxeStay — Luxury Hotel &amp; Suites</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Guest (not logged in) -->
+        <div class="nav-auth-guest">
+          <a href="login.html" class="btn btn-ghost btn-sm">
+            <i data-lucide="log-in"></i> Login
+          </a>
+          <a href="rooms.html" class="btn btn-primary btn-sm">Book Now</a>
+        </div>
+        <!-- User (logged in — hidden by default) -->
+        <div class="nav-auth-user" style="display:none;">
+          <span class="nav-user">
+            <i data-lucide="user"></i>
+            <span class="nav-user-name">Guest</span>
+          </span>
+          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
+          <button class="btn btn-ghost btn-sm btn-logout">
+            <i data-lucide="log-out"></i> Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <div class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-shape hero-shape-3"></div>
+      <div class="hero-shape hero-shape-ring"></div>
+    </div>
+
+    <div class="hero-content">
+      <span class="hero-tagline">Experience True Luxury</span>
+      <h1 class="hero-title">Where <em>Elegance</em><br>Meets Comfort</h1>
+      <p class="hero-subtitle">
+        Immerse yourself in unparalleled sophistication. From our exquisitely designed suites to world-class amenities, every moment at LuxeStay is crafted for perfection.
+      </p>
+      <div class="hero-buttons">
+        <a href="rooms.html" class="btn btn-primary btn-lg">
+          <i data-lucide="door-open"></i> Explore Rooms
+        </a>
+        <a href="#amenities" class="btn btn-secondary btn-lg">
+          <i data-lucide="play-circle"></i> Virtual Tour
+        </a>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="quick-search-bar animate-on-scroll delay-1" style="margin-top:40px; background:var(--bg-card); padding:20px; border-radius:var(--radius-lg); backdrop-filter:blur(20px); border:1px solid var(--border-color); display:inline-block; text-align:left;">
+        <form id="quickSearchForm" action="booking.html" method="GET" style="display:flex; gap:16px; align-items:flex-end; flex-wrap:wrap;">
+          <div class="search-field" style="display:flex; flex-direction:column; gap:8px;">
+            <label for="qsCheckIn" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Check-in</label>
+            <input type="date" id="qsCheckIn" name="check_in" required style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:140px;">
+          </div>
+          <div class="search-field" style="display:flex; flex-direction:column; gap:8px;">
+            <label for="qsCheckOut" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Check-out</label>
+            <input type="date" id="qsCheckOut" name="check_out" required style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:140px;">
+          </div>
+          <div class="search-field" style="display:flex; flex-direction:column; gap:8px;">
+            <label for="qsGuests" style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Guests</label>
+            <select id="qsGuests" name="guests" required style="background:transparent; border:1px solid var(--border-color); color:var(--text-primary); padding:10px 16px; border-radius:var(--radius-md); font-family:inherit; min-width:120px; appearance:none;">
+              <option value="1" style="color:#000;">1 Guest</option>
+              <option value="2" selected style="color:#000;">2 Guests</option>
+              <option value="3" style="color:#000;">3 Guests</option>
+              <option value="4" style="color:#000;">4 Guests</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="padding:10px 24px; height:42px;"><i data-lucide="search" style="width:18px;height:18px;"></i> Search</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <i data-lucide="chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FEATURED ROOMS
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="section-padding" id="rooms">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Accommodations</span>
+        <h2>Our Finest Accommodations</h2>
+        <div class="accent-line"></div>
+        <p>Each room is a masterpiece of design, blending timeless elegance with modern comfort for an unforgettable stay.</p>
+      </div>
+
+      <div class="rooms-grid" id="featuredRoomsGrid">
+        <div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--text-muted);">
+          Loading rooms...
+        </div>
+      </div>
+
+      <div class="text-center mt-xl animate-on-scroll">
+        <a href="rooms.html" class="btn btn-ghost">
+          View All Rooms <i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       AMENITIES
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="amenities-section section-padding" id="amenities">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Services</span>
+        <h2>World-Class Amenities</h2>
+        <div class="accent-line"></div>
+        <p>Indulge in an array of premium services designed to elevate every aspect of your stay.</p>
+      </div>
+
+      <div class="amenities-grid">
+        <div class="amenity-card animate-on-scroll delay-1">
+          <div class="icon-wrapper">
+            <i data-lucide="waves"></i>
+          </div>
+          <h4>Infinity Pool</h4>
+          <p>A stunning rooftop infinity pool overlooking the city skyline, open year-round with temperature-controlled water.</p>
+        </div>
+
+        <div class="amenity-card animate-on-scroll delay-2">
+          <div class="icon-wrapper">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <h4>Luxury Spa</h4>
+          <p>Rejuvenate your senses with our award-winning spa, offering bespoke treatments using the finest organic products.</p>
+        </div>
+
+        <div class="amenity-card animate-on-scroll delay-3">
+          <div class="icon-wrapper">
+            <i data-lucide="utensils"></i>
+          </div>
+          <h4>Fine Dining</h4>
+          <p>Savour culinary masterpieces prepared by Michelin-starred chefs in our elegant restaurants and private dining rooms.</p>
+        </div>
+
+        <div class="amenity-card animate-on-scroll delay-1">
+          <div class="icon-wrapper">
+            <i data-lucide="dumbbell"></i>
+          </div>
+          <h4>Fitness Center</h4>
+          <p>State-of-the-art gym equipped with premium machines, personal trainers, and yoga studios for your wellness journey.</p>
+        </div>
+
+        <div class="amenity-card animate-on-scroll delay-2">
+          <div class="icon-wrapper">
+            <i data-lucide="wifi"></i>
+          </div>
+          <h4>Free WiFi</h4>
+          <p>High-speed fiber internet throughout the property, ensuring seamless connectivity for work and leisure.</p>
+        </div>
+
+        <div class="amenity-card animate-on-scroll delay-3">
+          <div class="icon-wrapper">
+            <i data-lucide="bell"></i>
+          </div>
+          <h4>24/7 Concierge</h4>
+          <p>Our dedicated concierge team is available around the clock to fulfil any request and curate unforgettable experiences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       STATS
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="stats-section section-padding">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item animate-on-scroll delay-1">
+          <div class="stat-number" data-counter="250" data-suffix="+">0</div>
+          <div class="stat-label">Luxury Rooms</div>
+        </div>
+        <div class="stat-item animate-on-scroll delay-2">
+          <div class="stat-number" data-counter="15" data-suffix="+">0</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+        <div class="stat-item animate-on-scroll delay-3">
+          <div class="stat-number" data-counter="50" data-suffix="K+">0</div>
+          <div class="stat-label">Happy Guests</div>
+        </div>
+        <div class="stat-item animate-on-scroll delay-4">
+          <div class="stat-number" data-counter="4.9">0</div>
+          <div class="stat-label">Guest Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TESTIMONIALS
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="testimonials-section section-padding">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-tag">Testimonials</span>
+        <h2>What Our Guests Say</h2>
+        <div class="accent-line"></div>
+        <p>Hear from our guests about their unforgettable experiences at LuxeStay.</p>
+      </div>
+
+      <div class="testimonials-grid" id="testimonialsGrid">
+        <div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--text-muted);">
+          Loading testimonials...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CTA SECTION
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="cta-section section-padding">
+    <div class="container">
+      <div class="cta-content animate-on-scroll">
+        <h2>Ready for an <em style="font-style:normal;color:var(--gold)">Unforgettable</em> Stay?</h2>
+        <p>Book your luxury experience today and discover why discerning travelers choose LuxeStay for their most cherished moments.</p>
+        <a href="rooms.html" class="btn btn-primary btn-lg">
+          <i data-lucide="calendar-check"></i> Book Your Stay
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">LUXE<span>STAY</span></a>
+          <p>Where elegance meets comfort. Experience world-class hospitality in the heart of the city, crafted for the most discerning travelers.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+            <a href="#" aria-label="Youtube"><i data-lucide="youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms &amp; Suites</a></li>
+            <li><a href="#amenities">Dining</a></li>
+            <li><a href="#amenities">Spa &amp; Wellness</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer-column">
+          <h4>Contact</h4>
+          <ul>
+            <li>
+              <a href="#"><i data-lucide="map-pin"></i> 42 Royal Avenue, Manhattan, NY 10001</a>
+            </li>
+            <li>
+              <a href="tel:+12125550199"><i data-lucide="phone"></i> +1 (212) 555-0199</a>
+            </li>
+            <li>
+              <a href="mailto:hello@luxestay.com"><i data-lucide="mail"></i> hello@luxestay.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer-column footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe for exclusive offers, travel inspiration, and the latest LuxeStay news.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!','success');">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" aria-label="Subscribe">
+              <i data-lucide="send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 LuxeStay. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons();
+    
+    // Set min date for quick search
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toISOString().split('T')[0];
+      const checkIn = document.getElementById('qsCheckIn');
+      const checkOut = document.getElementById('qsCheckOut');
+      if (checkIn && checkOut) {
+        checkIn.min = today;
+        checkIn.addEventListener('change', () => {
+          checkOut.min = checkIn.value;
+          if (checkOut.value && checkOut.value <= checkIn.value) {
+            let nextDay = new Date(checkIn.value);
+            nextDay.setDate(nextDay.getDate() + 1);
+            checkOut.value = nextDay.toISOString().split('T')[0];
+          }
+        });
+      }
+      
+      // Fetch featured rooms
+      fetchRooms();
+      
+      // Fetch testimonials
+      fetchReviews();
+    });
+
+    async function fetchRooms() {
+      const grid = document.getElementById('featuredRoomsGrid');
+      try {
+        const res = await fetch('/api/rooms.php?action=list');
+        const data = await res.json();
+        if (data.success && data.data) {
+          const rooms = data.data.slice(0, 3); // Get first 3 rooms
+          
+          grid.innerHTML = rooms.map((room, index) => `
+            <div class="room-card animate-on-scroll delay-${index + 1}" style="opacity: 1; transform: translateY(0);">
+              <div class="room-card-image">
+                <img src="${room.image_url || 'assets/images/room-standard.jpg'}" alt="${room.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                <div class="overlay"></div>
+                <div class="price-badge">$${room.base_price} <small>/night</small></div>
+              </div>
+              <div class="room-card-content">
+                <h3>${room.name}</h3>
+                <p class="room-desc">${room.description || 'Experience ultimate comfort and luxury.'}</p>
+                <div class="room-meta">
+                  <div class="room-meta-item">
+                    <i data-lucide="users"></i>
+                    <span>${room.capacity} Guests</span>
+                  </div>
+                  <div class="room-meta-item">
+                    <i data-lucide="maximize"></i>
+                    <span>${room.size || '45'} m²</span>
+                  </div>
+                  <div class="room-meta-item">
+                    <i data-lucide="bed-double"></i>
+                    <span>${room.bed_type || 'King Bed'}</span>
+                  </div>
+                </div>
+                <div class="room-amenities">
+                  ${(Array.isArray(room.amenities) ? room.amenities : (room.amenities || 'WiFi,TV,AC').split(',')).slice(0,4).map(a => `<span class="amenity-tag"><i data-lucide="check"></i> ${a.trim()}</span>`).join('')}
+                </div>
+                <a href="rooms.html" class="btn btn-secondary w-full">View Details</a>
+              </div>
+            </div>
+          `).join('');
+          lucide.createIcons();
+        }
+      } catch (e) {
+        console.error(e);
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--error);">Failed to load rooms.</div>';
+      }
+    }
+
+    async function fetchReviews() {
+      const grid = document.getElementById('testimonialsGrid');
+      if (!grid) return;
+      try {
+        const res = await fetch('/api/reviews.php?action=list');
+        const data = await res.json();
+        if (data.success && data.data && data.data.length > 0) {
+          const reviews = data.data.slice(0, 3);
+          grid.innerHTML = reviews.map((r, index) => {
+            const initials = r.guest_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            const colors = [
+              'linear-gradient(135deg, #d4a853, #b8860b)',
+              'linear-gradient(135deg, #a78bfa, #7c3aed)',
+              'linear-gradient(135deg, #60a5fa, #2563eb)',
+              'linear-gradient(135deg, #34d399, #059669)'
+            ];
+            const color = colors[index % colors.length];
+            return `
+              <div class="testimonial-card animate-on-scroll delay-${index + 1}" style="opacity: 1; transform: translateY(0);">
+                <div class="testimonial-header">
+                  <div class="testimonial-stars">
+                    ${Array(5).fill(0).map((_, i) => `<i data-lucide="star" class="${i < r.rating ? 'star-filled' : ''}"></i>`).join('')}
+                  </div>
+                </div>
+                <p class="testimonial-text">${r.comment || 'An amazing experience!'}</p>
+                <div class="testimonial-author">
+                  <div class="testimonial-avatar" style="background: ${color};">${initials}</div>
+                  <div class="testimonial-info">
+                    <h4>${r.guest_name}</h4>
+                    <span>Stayed in ${r.room_name}</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+          lucide.createIcons();
+        } else {
+          grid.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--text-muted);">Be the first to leave a review!</div>';
+        }
+      } catch (e) {
+        console.error(e);
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--error);">Failed to load reviews.</div>';
+      }
+    }
+  </script>
+</body>
+</html>

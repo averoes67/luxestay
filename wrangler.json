@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "luxestay-hotel",
+  "pages_build_output_dir": ".",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "luxestay_db",
+      "database_id": "local-db-id"
+    }
+  ]
+}
