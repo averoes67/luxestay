@@ -100,7 +100,7 @@ app.all('/reservations.php', async (c) => {
   const action = await getAction(c)
 
   // Auth check for reservations.php actions
-  const isAuthRequired = ['create', 'user', 'cancel', 'all', 'update_status'].includes(action)
+  const isAuthRequired = ['create', 'user', 'cancel', 'pay', 'all', 'update_status'].includes(action)
   if (isAuthRequired) {
     const res = await requireAuth(c, async () => {})
     if (res instanceof Response) {
