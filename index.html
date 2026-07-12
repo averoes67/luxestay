@@ -18,48 +18,48 @@
     .lang-switcher-pill {
       display: inline-flex !important;
       align-items: center !important;
-      background: #f5f5f5 !important;
-      border-radius: 12px !important;
-      padding: 4px !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(212, 168, 83, 0.2) !important;
+      border-radius: 24px !important;
+      padding: 3px !important;
       gap: 2px !important;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05) !important;
       margin-left: 12px;
     }
     .lang-icon {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      padding: 0 10px !important;
+      padding: 0 8px 0 6px !important;
     }
     .lang-icon svg {
-      width: 22px !important;
-      height: 22px !important;
-      fill: #111 !important;
+      width: 16px !important;
+      height: 16px !important;
+      fill: rgba(255, 255, 255, 0.7) !important; /* Matches var(--text-secondary) */
     }
     .lang-pill-btn {
       appearance: none !important;
       -webkit-appearance: none !important;
       background: transparent !important;
       border: none !important;
-      color: #666 !important;
-      font-size: 16px !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-size: 0.85rem !important;
       font-weight: 500 !important;
-      padding: 6px 12px !important;
-      border-radius: 8px !important;
+      padding: 4px 10px !important;
+      border-radius: 20px !important;
       cursor: pointer !important;
-      transition: all 0.2s ease !important;
+      transition: all 0.3s ease !important;
       font-family: 'Inter', sans-serif !important;
       outline: none !important;
-      letter-spacing: 0.5px !important;
       box-shadow: none !important;
     }
     .lang-pill-btn:hover {
-      color: #111 !important;
+      color: #ffffff !important;
     }
     .lang-pill-btn.active {
-      background: #ffffff !important;
-      color: #111 !important;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.05) !important;
+      background: #D4A853 !important; /* var(--gold) */
+      color: #0A0E1A !important; /* Dark text for contrast */
+      font-weight: 600 !important;
+      box-shadow: 0 2px 8px rgba(212, 168, 83, 0.3) !important;
     }
   </style>
 </head>
@@ -82,7 +82,7 @@
       <div class="nav-actions">
         <div class="lang-switcher-pill">
             <div class="lang-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#111" width="22" height="22">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#111" width="16" height="16">
                 <path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
               </svg>
             </div>
