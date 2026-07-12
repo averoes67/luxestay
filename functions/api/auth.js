@@ -99,75 +99,79 @@ export async function loginHandler(c) {
 
 // Handler: Register
 export async function registerHandler(c) {
-  let body
   try {
-    body = await c.req.json()
-  } catch (e) {
-    body = await c.req.parseBody()
+    let body
+    try {
+      body = await c.req.json()
+    } catch (e) {
+      body = await c.req.parseBody()
+    }
+
+    const { full_name, email, password, phone } = body
+
+    if (!full_name || !email || !password) {
+      return c.json({ success: false, error: 'Missing required fields: full_name, email, password' }, 400)
+    }
+
+    if (password.length < 6) {
+      return c.json({ success: false, error: 'Password must be at least 6 characters.' }, 400)
+    }
+
+    // Check duplicate email
+    const existingUser = await c.env.DB.prepare('SELECT id FROM users WHERE email = ? LIMIT 1')
+      .bind(email)
+      .first()
+
+    if (existingUser) {
+      return c.json({ success: false, error: 'An account with this email address already exists.' }, 409)
+    }
+
+    // Hash password (use low cost factor for Cloudflare Workers CPU limit)
+    const salt = bcrypt.genSaltSync(4)
+    const passwordHash = bcrypt.hashSync(password, salt)
+
+    // Insert user
+    const info = await c.env.DB.prepare(
+      'INSERT INTO users (full_name, email, password_hash, phone, role) VALUES (?, ?, ?, ?, ?)'
+    )
+    .bind(full_name, email, passwordHash, phone || '', 'guest')
+    .run()
+
+    const userId = info.meta.last_row_id || 0
+
+    const userData = {
+      id: userId,
+      full_name,
+      email,
+      phone: phone || '',
+      role: 'guest'
+    }
+
+    // Generate JWT token
+    const token = await sign(
+      {
+        user: userData,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // 24 hours
+      },
+      getJwtSecret(c)
+    )
+
+    // Set HTTP-only Cookie
+    setCookie(c, 'auth_token', token, {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'Lax',
+      maxAge: 60 * 60 * 24 // 24 hours
+    })
+
+    return c.json({
+      success: true,
+      message: 'Registration successful.',
+      user: userData
+    }, 201)
+  } catch (err) {
+    return c.json({ success: false, error: err.message, stack: err.stack }, 500)
   }
-
-  const { full_name, email, password, phone } = body
-
-  if (!full_name || !email || !password) {
-    return c.json({ success: false, error: 'Missing required fields: full_name, email, password' }, 400)
-  }
-
-  if (password.length < 6) {
-    return c.json({ success: false, error: 'Password must be at least 6 characters.' }, 400)
-  }
-
-  // Check duplicate email
-  const existingUser = await c.env.DB.prepare('SELECT id FROM users WHERE email = ? LIMIT 1')
-    .bind(email)
-    .first()
-
-  if (existingUser) {
-    return c.json({ success: false, error: 'An account with this email address already exists.' }, 409)
-  }
-
-  // Hash password
-  const salt = bcrypt.genSaltSync(10)
-  const passwordHash = bcrypt.hashSync(password, salt)
-
-  // Insert user
-  const info = await c.env.DB.prepare(
-    'INSERT INTO users (full_name, email, password_hash, phone, role) VALUES (?, ?, ?, ?, ?)'
-  )
-  .bind(full_name, email, passwordHash, phone || '', 'guest')
-  .run()
-
-  const userId = info.meta.last_row_id || 0
-
-  const userData = {
-    id: userId,
-    full_name,
-    email,
-    phone: phone || '',
-    role: 'guest'
-  }
-
-  // Generate JWT token
-  const token = await sign(
-    {
-      user: userData,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // 24 hours
-    },
-    getJwtSecret(c)
-  )
-
-  // Set HTTP-only Cookie
-  setCookie(c, 'auth_token', token, {
-    path: '/',
-    httpOnly: true,
-    sameSite: 'Lax',
-    maxAge: 60 * 60 * 24 // 24 hours
-  })
-
-  return c.json({
-    success: true,
-    message: 'Registration successful.',
-    user: userData
-  }, 201)
 }
 
 // Handler: Logout

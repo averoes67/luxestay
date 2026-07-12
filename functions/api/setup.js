@@ -76,7 +76,7 @@ CREATE TABLE reviews (
 );
 
 INSERT INTO users (full_name, email, phone, password_hash, role) VALUES 
-('Admin LuxeStay', 'admin@luxestay.com', '081234567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+('Admin LuxeStay', 'admin@luxestay.com', '081234567890', '$2b$04$mscejQyr/9Qgd/coyIAeGOiJPsxUrUvlpKiBW2m9RLOcJMtIPXrJ2', 'admin');
 
 INSERT INTO room_types (name, slug, description, base_price, capacity, size_sqm, amenities, image_url) VALUES
 ('Standard Room', 'standard-room', 'A refined retreat.', 120.00, 2, 28, '["King-size bed"]', 'assets/images/room-standard-room.jpg'),
