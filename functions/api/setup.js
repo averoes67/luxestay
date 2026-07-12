@@ -8,7 +8,7 @@ setupApp.get('/', async (c) => {
     return c.json({ error: 'Database connection failed' }, 500)
   }
 
-  const sql = \
+  const sql = `
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS reservations;
 DROP TABLE IF EXISTS rooms;
@@ -76,7 +76,7 @@ CREATE TABLE reviews (
 );
 
 INSERT INTO users (name, email, phone, password_hash, role) VALUES 
-('Admin LuxeStay', 'admin@luxestay.com', '081234567890', '\\\.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+('Admin LuxeStay', 'admin@luxestay.com', '081234567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
 
 INSERT INTO room_types (name, slug, description, base_price, capacity, size_sqm, amenities, image_url) VALUES
 ('Standard Room', 'standard-room', 'A refined retreat.', 120.00, 2, 28, '["King-size bed"]', 'assets/images/room-standard-room.jpg'),
@@ -87,7 +87,7 @@ INSERT INTO room_types (name, slug, description, base_price, capacity, size_sqm,
 
 INSERT INTO rooms (room_type_id, room_number, floor, status) VALUES
 (1, '101', 1, 'available'), (1, '102', 1, 'available'), (2, '205', 2, 'available'), (2, '206', 2, 'available'), (3, '303', 3, 'available'), (3, '304', 3, 'available'), (4, '401', 4, 'available'), (4, '402', 4, 'available'), (5, '501', 5, 'available'), (5, '502', 5, 'available');
-\
+`;
 
   try {
     const statements = sql.split(';').map(s => s.trim()).filter(s => s.length > 0);
