@@ -342,9 +342,12 @@
       btn.innerHTML = '<span class="spinner spinner-sm"></span> Checking...';
 
       try {
-        const data = await apiRequest(
-          `rooms.php?action=availability&type_id=${typeId}&check_in=${checkIn}&check_out=${checkOut}`
-        );
+        // Mock API call for Cloudflare Pages static site
+        await new Promise(resolve => setTimeout(resolve, 800));
+        const checkInDate = new Date(checkIn);
+        // Randomly simulate availability based on dates
+        const isAvailable = (checkInDate.getDate() % 5 !== 0);
+        const data = { available_count: isAvailable ? 2 : 0 };
 
         const result = document.getElementById('availabilityResult');
         const title = document.getElementById('resultTitle');
@@ -386,7 +389,7 @@
     async function fetchRooms() {
       const grid = document.getElementById('roomsGrid');
       try {
-        const res = await fetch('/api/rooms.php?action=list');
+        const res = await fetch('api/rooms.json');
         const data = await res.json();
         if (data.success && data.data) {
           const rooms = data.data;
