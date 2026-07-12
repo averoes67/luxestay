@@ -2419,45 +2419,59 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 
+
 /* ── Custom Language Switcher ── */
 .lang-switcher-modern {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 .lang-btn {
-  background: rgba(10, 14, 26, 0.6);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  transition: color 0.3s ease;
+  font-family: inherit;
+  padding: 4px 0;
 }
 .lang-btn:hover {
-  border-color: var(--gold);
   color: var(--gold);
 }
 .lang-menu {
   position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  min-width: 150px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  top: calc(100% + 15px);
+  right: -10px;
+  background: rgba(10, 14, 26, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 168, 83, 0.2);
+  border-radius: var(--radius-sm);
+  min-width: 140px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1000;
   overflow: hidden;
+}
+.lang-menu::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  background: rgba(10, 14, 26, 0.95);
+  border-top: 1px solid rgba(212, 168, 83, 0.2);
+  border-left: 1px solid rgba(212, 168, 83, 0.2);
+  transform: rotate(45deg);
 }
 .lang-menu.show {
   opacity: 1;
@@ -2465,13 +2479,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transform: translateY(0);
 }
 .lang-option {
-  padding: 10px 16px;
+  padding: 12px 16px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--text-secondary);
   transition: all 0.2s ease;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.lang-option:last-child {
+  border-bottom: none;
 }
 .lang-option:hover {
-  background: rgba(212, 168, 83, 0.1);
+  background: rgba(212, 168, 83, 0.15);
   color: var(--gold);
+  padding-left: 20px;
 }
