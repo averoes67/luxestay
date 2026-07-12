@@ -90,9 +90,7 @@
         return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
     }
 
-    function formatCurrency(n) {
-        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
+    // formatCurrency is now handled globally in app.js
 
     // ── Events ──
     function bindEvents() {

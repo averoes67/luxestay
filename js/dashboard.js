@@ -113,7 +113,7 @@
 
     if (totalEl) animateValue(totalEl, 0, totalStays, 800);
     if (upcomingEl) animateValue(upcomingEl, 0, upcomingStays, 800);
-    if (spentEl) animateValue(spentEl, 0, totalSpent, 1000, '$');
+    if (spentEl) animateValue(spentEl, 0, totalSpent, 1000, 'IDR');
   }
 
   function animateValue(el, start, end, duration, prefix = '') {
@@ -126,8 +126,8 @@
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = start + (end - start) * eased;
 
-      if (prefix === '$') {
-        el.textContent = '$' + Math.round(current).toLocaleString();
+      if (prefix === 'IDR') {
+        el.textContent = window.formatCurrency(current);
       } else {
         el.textContent = Math.round(current);
       }
@@ -236,7 +236,7 @@
             <i data-lucide="users"></i>
             ${res.guests_count || 1} Guest${(res.guests_count || 1) > 1 ? 's' : ''}
           </div>
-          <div class="res-price">$${parseFloat(res.total_price || 0).toLocaleString()}</div>
+          <div class="res-price">${window.formatCurrency(res.total_price || 0)}</div>
           <div class="res-actions">
             <span class="status-badge ${statusClass}">${formatStatus(res.status)}</span>
             ${canCancel ? `<button class="cancel-btn" onclick="openCancelModal(${res.id})">
@@ -279,7 +279,7 @@
         </div>
         <div class="detail-row">
           <span class="detail-label">Total</span>
-          <span class="detail-value" style="color:var(--gold);">$${parseFloat(res.total_price || 0).toLocaleString()}</span>
+          <span class="detail-value" style="color:var(--gold);">${window.formatCurrency(res.total_price || 0)}</span>
         </div>
       `;
     }

@@ -346,7 +346,7 @@
               <div class="room-card-image">
                 <img src="${room.image_url || 'assets/images/room-standard.jpg'}" alt="${room.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
                 <div class="overlay"></div>
-                <div class="price-badge">$${room.base_price} <small>/night</small></div>
+                <div class="price-badge">${window.formatCurrency(room.base_price)} <small>/night</small></div>
               </div>
               <div class="room-card-content">
                 <h3>${room.name}</h3>

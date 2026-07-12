@@ -9,6 +9,18 @@
   // ── Base API URL ──────────────────────────────────────────
   const API_BASE = '/api/';
 
+  // ── Global Currency Formatter (IDR) ───────────────────────
+  window.formatCurrency = function(amount) {
+    const rate = 16000;
+    const converted = Number(amount) * rate;
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(converted);
+  };
+
   // ── Navigation Scroll Effect ──────────────────────────────
   function initNavScroll() {
     const navbar = document.querySelector('.navbar');

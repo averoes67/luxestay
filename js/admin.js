@@ -183,7 +183,7 @@
                 const d = res.data;
                 animateCounter('kpiTotalRooms', d.total_rooms || 0);
                 animateCounter('kpiOccupancy', d.occupancy_rate || 0, '%');
-                animateCounter('kpiRevenue', d.today_revenue || 0, '', '$');
+                animateCounter('kpiRevenue', d.today_revenue || 0, '', 'IDR');
                 animateCounter('kpiGuests', d.active_reservations || 0);
             }
         } catch (_) {
@@ -305,7 +305,7 @@
                     <td>${r.room_type_name || '—'} ${r.room_number ? '#' + r.room_number : ''}</td>
                     <td>${formatDateTbl(r.check_in)}</td>
                     <td>${formatDateTbl(r.check_out)}</td>
-                    <td style="color:var(--gold);font-weight:600;">$${parseFloat(r.total_price || 0).toLocaleString()}</td>
+                    <td style="color:var(--gold);font-weight:600;">${window.formatCurrency(r.total_price || 0)}</td>
                     <td><span class="badge badge-${(r.status || '').replace('_','-')}">${(r.status || '').replace('_',' ')}</span></td>
                     <td>
                         <select class="status-select" data-res-id="${r.id}" onchange="window._updateResStatus(this)">
@@ -354,7 +354,7 @@
                     <td style="font-weight:600;">${r.room_number}</td>
                     <td>${r.floor || '—'}</td>
                     <td>${r.room_type_name || '—'}</td>
-                    <td style="color:var(--gold);font-weight:600;">$${parseFloat(r.base_price || 0).toLocaleString()}</td>
+                    <td style="color:var(--gold);font-weight:600;">${window.formatCurrency(r.base_price || 0)}</td>
                     <td>
                         <select class="status-select" data-room-id="${r.id}" onchange="window._updateRoomStatus(this)">
                             <option value="available" ${r.status==='available'?'selected':''}>Available</option>
@@ -407,7 +407,7 @@
                     <td>${formatDateTbl(r.check_in)}</td>
                     <td>${formatDateTbl(r.check_out)}</td>
                     <td>${r.guests_count || '—'}</td>
-                    <td style="color:var(--gold);font-weight:600;">$${parseFloat(r.total_price || 0).toLocaleString()}</td>
+                    <td style="color:var(--gold);font-weight:600;">${window.formatCurrency(r.total_price || 0)}</td>
                     <td><span class="badge badge-${(r.status||'').replace('_','-')}">${(r.status||'').replace('_',' ')}</span></td>
                     <td>
                         <select class="status-select" data-res-id="${r.id}" onchange="window._updateResStatus(this)">
@@ -454,7 +454,7 @@
                     <td>${g.email || '—'}</td>
                     <td>${g.phone || '—'}</td>
                     <td style="text-align:center;">${g.total_bookings || 0}</td>
-                    <td style="color:var(--gold);font-weight:600;">$${parseFloat(g.total_spent || 0).toLocaleString()}</td>
+                    <td style="color:var(--gold);font-weight:600;">${window.formatCurrency(g.total_spent || 0)}</td>
                 </tr>
             `).join('');
 
@@ -479,7 +479,7 @@
             const avgDaily = data.length > 0 ? totalRev / data.length : 0;
             const highest  = data.length > 0 ? Math.max(...data.map(d => parseFloat(d.revenue || 0))) : 0;
 
-            document.getElementById('revTotal').textContent    = '$' + totalRev.toLocaleString('en-US', { minimumFractionDigits: 0 });
+            document.getElementById('revTotal').textContent = window.formatCurrency(totalRev);
             document.getElementById('revAvg').textContent      = '$' + Math.round(avgDaily).toLocaleString();
             document.getElementById('revHighest').textContent   = '$' + highest.toLocaleString();
             document.getElementById('revBookings').textContent  = data.length;
@@ -523,7 +523,7 @@
             tblBody.innerHTML = data.slice().reverse().map(d => `
                 <tr>
                     <td>${formatDateTbl(d.date)}</td>
-                    <td style="color:var(--gold);font-weight:600;">$${parseFloat(d.revenue || 0).toLocaleString()}</td>
+                    <td style="color:var(--gold);font-weight:600;">${window.formatCurrency(d.revenue || 0)}</td>
                 </tr>
             `).join('');
 
@@ -707,7 +707,7 @@
     window._openEditPrice = function (typeId, typeName, currentPrice) {
         editRoomTypeId = typeId;
         document.getElementById('editRoomTypeName').textContent = typeName;
-        document.getElementById('editCurrentPrice').textContent = '$' + parseFloat(currentPrice).toLocaleString();
+        document.getElementById('editCurrentPrice').textContent = window.formatCurrency(currentPrice);
         document.getElementById('newPriceInput').value = '';
         openModal('editPriceModal');
         lucide.createIcons();
